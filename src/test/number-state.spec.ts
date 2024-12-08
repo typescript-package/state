@@ -7,15 +7,15 @@ export class NumberedState extends NumberState {
   }
 }
 
-const n = new NumberedState();
+const numberedState = new NumberedState();
 
-console.log(n.state);
-n.decrement();
-console.log(n.state);
-n.increment();
-console.log(n.state);
-n.increment(5);
-console.log(n.state);
-n.reset();
-console.log(n.state);
+console.log(numberedState.state);
+numberedState.decrement();
+console.log(numberedState.state);
+numberedState.increment();
+console.log(numberedState.state);
+numberedState.increment(5);
+console.log(numberedState.state);
+numberedState.reset();
+console.log(numberedState.state);
 

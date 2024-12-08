@@ -40,6 +40,6 @@ console.log(activeState.false());
 activeState.lock();
 
 console.log(`--Locked`);
-console.log(activeState.activate());
-console.log(activeState.false());
+// console.log(activeState.activate());
+// console.log(activeState.false());
 

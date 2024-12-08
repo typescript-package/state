@@ -5,13 +5,13 @@ enum Active {
   No
 }
 
-export class TestEnum extends EnumState<typeof Active, Active> {
+export class ActiveEnum extends EnumState<typeof Active, Active> {
   constructor(state: Active) {
     super(state, Active);
   }
 
 }
 
-const enumState = new TestEnum(Active.No);
+const activeEnum = new ActiveEnum(Active.No);
 
-console.log(enumState.is(Active.No));
+console.log(activeEnum.is(Active.No));
