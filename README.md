@@ -9,6 +9,7 @@
 
 ## typescript-package/state
 
+Simple state management for TypeScript.
 
 <!-- npm badge -->
 [![npm version][typescript-package-npm-badge-svg]][typescript-package-npm-badge]
@@ -21,6 +22,10 @@
 
 * [Installation](#installation)
 * [Api](#api)
+  * [`BooleanState`](#booleanstate)
+  * [`EnumState`](#enumstate)
+  * [`NullState`](#nullstate)
+  * [`NumberState`](#numberstate)
 * [Immutability](#immutability)
   * [Sealed](#sealed)
   * [Frozen](#frozen)
@@ -47,6 +52,100 @@ import {
   ImmutableState,
   State
 } from '@typescript-package/state';
+```
+
+### `BooleanState`
+
+```typescript
+import { BooleanState } from '@typescript-package/state';
+
+export class ActiveState extends BooleanState {
+  public override get state() {
+    return super.state;
+  }
+
+  public override false() {
+    super.false();
+    return this;
+  }
+
+  public activate() {
+    super.true();
+  }
+
+  public deactivate() {
+    super.false();
+  }
+}
+
+```
+
+### `EnumState`
+
+```typescript
+import { EnumState } from '@typescript-package/state';
+
+enum Active {
+  Yes,
+  No
+}
+
+export class ActiveEnum extends EnumState<typeof Active, Active> {
+  constructor(state: Active) {
+    super(state, Active);
+  }
+
+}
+
+const activeEnum = new ActiveEnum(Active.No);
+
+console.log(activeEnum.is(Active.No));
+```
+
+### `NullState`
+
+```typescript
+import { NullState } from '@typescript-package/state';
+
+export class Nullified extends NullState {}
+
+const n = new Nullified();
+
+n.set();
+
+console.log(`NullState`);
+console.log(n.state);
+
+n.unset();
+console.log(n.state);
+
+```
+
+### `NumberState`
+
+```typescript
+import { NumberState } from '@typescript-package/state';
+
+export class NumberedState extends NumberState {
+  public override reset() {
+    super.reset();
+    return this;
+  }
+}
+
+const n = new NumberedState();
+
+const numberedState = new NumberedState();
+
+console.log(numberedState.state);
+numberedState.decrement();
+console.log(numberedState.state);
+numberedState.increment();
+console.log(numberedState.state);
+numberedState.increment(5);
+console.log(numberedState.state);
+numberedState.reset();
+console.log(numberedState.state);
 ```
 
 ## Immutability
