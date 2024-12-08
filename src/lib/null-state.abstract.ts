@@ -33,8 +33,18 @@ export abstract class NullState extends State<null | undefined> {
    * @param {?null} [state]
    * @returns {this}
    */
-  public override set(state?: null) {
-    super.set(state);
+  public override set() {
+    super.set(null);
+    return this;
+  }
+
+  /**
+   * @description
+   * @public
+   * @returns {this}
+   */
+  public unset() {
+    super.set(undefined);
     return this;
   }
 }
