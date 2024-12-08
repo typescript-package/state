@@ -18,3 +18,7 @@ export class ActiveState extends BooleanState {
     super.false();
   }
 }
+
+const activeState = new ActiveState();
+
+activeState.deactivate();

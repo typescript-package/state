@@ -1,7 +1,7 @@
 // Abstract.
 import { State } from "./state.abstract";
 /**
- * @description Handles the number state.
+ * @description Handles and manages the `number` type state.
  * @export
  * @abstract
  * @class NumberState

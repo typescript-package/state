@@ -1,7 +1,7 @@
 // Abstract.
 import { State } from "./state.abstract";
 /**
- * @description Handles the boolean state.
+ * @description Handles the `boolean` type state.
  * @export
  * @abstract
  * @class BooleanState

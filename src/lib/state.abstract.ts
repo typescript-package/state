@@ -1,7 +1,7 @@
 // Abstract.
 import { ImmutableState } from "./immutable-state.abstract";
 /**
- * @description
+ * @description Common class for setting the state of `Type`.
  * @export
  * @abstract
  * @class State
@@ -11,7 +11,7 @@ import { ImmutableState } from "./immutable-state.abstract";
  */
 export abstract class State<Type> extends ImmutableState {
   /**
-   * @description
+   * @description Returns the current state of `Type`.
    * @public
    * @readonly
    * @type {Type}
@@ -21,7 +21,7 @@ export abstract class State<Type> extends ImmutableState {
   }
 
   /**
-   * @description
+   * @description Privately stored state of `Type`.
    * @private
    * @type {Type}
    */
@@ -30,7 +30,7 @@ export abstract class State<Type> extends ImmutableState {
   /**
    * Creates an instance of parent class.
    * @constructor
-   * @param {Type} [initialState]
+   * @param {Type} [initialState] Initial state of `Type`.
    */
   constructor(initialState: Type) {
     super();
