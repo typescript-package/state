@@ -2,12 +2,12 @@ import { NullState } from "../lib/null-state.abstract";
 
 export class Nullified extends NullState {}
 
-const n = new Nullified();
+const nullified = new Nullified();
 
-n.set();
+nullified.set();
 
 console.log(`NullState`);
-console.log(n.state);
+console.log(nullified.state);
 
-n.unset();
-console.log(n.state);
+nullified.unset();
+console.log(nullified.state);
