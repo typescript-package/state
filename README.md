@@ -85,11 +85,13 @@ export class ActiveState extends BooleanState {
 ```typescript
 import { EnumState } from '@typescript-package/state';
 
+// Define example enum.
 enum Active {
   Yes,
   No
 }
 
+// Use the `EnumState`.
 export class ActiveEnum extends EnumState<typeof Active, Active> {
   constructor(state: Active) {
     super(state, Active);
@@ -97,9 +99,11 @@ export class ActiveEnum extends EnumState<typeof Active, Active> {
 
 }
 
+// Initialize.
 const activeEnum = new ActiveEnum(Active.No);
 
-console.log(activeEnum.is(Active.No));
+// Check whether enum is set to `No`.
+activeEnum.is(Active.No)
 ```
 
 ### `NullState`
@@ -107,18 +111,17 @@ console.log(activeEnum.is(Active.No));
 ```typescript
 import { NullState } from '@typescript-package/state';
 
+// Use the `NullState`.
 export class Nullified extends NullState {}
 
-const n = new Nullified();
+// Initialize.
+const nullified = new Nullified();
 
-n.set();
+// Sets the state to `null`.
+nullified.set();
 
-console.log(`NullState`);
-console.log(n.state);
-
-n.unset();
-console.log(n.state);
-
+// Sets the state to `undefined`.
+nullified.unset();
 ```
 
 ### `NumberState`
@@ -126,6 +129,7 @@ console.log(n.state);
 ```typescript
 import { NumberState } from '@typescript-package/state';
 
+// Use the `NumberState`.
 export class NumberedState extends NumberState {
   public override reset() {
     super.reset();
@@ -133,19 +137,20 @@ export class NumberedState extends NumberState {
   }
 }
 
-const n = new NumberedState();
-
+// Initialize.
 const numberedState = new NumberedState();
 
-console.log(numberedState.state);
+// Decrement state by 1.
 numberedState.decrement();
-console.log(numberedState.state);
+
+// Increment state by 1.
 numberedState.increment();
-console.log(numberedState.state);
+
+// Increment state by 5.
 numberedState.increment(5);
-console.log(numberedState.state);
+
+// Reset state to 0..
 numberedState.reset();
-console.log(numberedState.state);
 ```
 
 ## Immutability
