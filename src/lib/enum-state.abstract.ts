@@ -1,7 +1,7 @@
 // Abstract.
 import { State } from "./state.abstract";
 /**
- * @description
+ * @description Handles the `enum` type state.
  * @export
  * @abstract
  * @class EnumState
@@ -23,7 +23,13 @@ export abstract class EnumState<
   constructor(state: T, enumObject: EnumObject) {
     super(state);
   }
-
+  
+  /**
+   * @description Checks whether the state is of the specific enum.
+   * @public
+   * @param {T} state The specific enum to check whether state is.
+   * @returns {boolean}
+   */
   public is(state: T) {
     return super.state === state;
   }

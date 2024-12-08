@@ -1,5 +1,5 @@
 /**
- * @description
+ * @description Manages the immutability states of `this` current instance.
  * @export
  * @abstract
  * @class ImmutableState
@@ -26,7 +26,7 @@ export abstract class ImmutableState {
   }
 
   /**
-   * @description
+   * @description Checks whether `this` current instance is frozen.
    * @public
    * @returns {boolean}
    */
@@ -53,7 +53,7 @@ export abstract class ImmutableState {
   }
 
   /**
-   * @description 
+   * @description Checks whether `this` current instance is sealed.
    * @public
    * @returns {boolean}
    */

@@ -1,7 +1,7 @@
 // Abstract.
 import { State } from "./state.abstract";
 /**
- * @description
+ * @description Handles and manages the `null` type state.
  * @export
  * @abstract
  * @class NullState
@@ -19,7 +19,7 @@ export abstract class NullState extends State<null | undefined> {
   }
 
   /**
-   * @description
+   * @description Checks whether state is `null`.
    * @public
    * @returns {boolean}
    */
@@ -39,7 +39,7 @@ export abstract class NullState extends State<null | undefined> {
   }
 
   /**
-   * @description
+   * @description Removes the `null` state.
    * @public
    * @returns {this}
    */
@@ -48,64 +48,3 @@ export abstract class NullState extends State<null | undefined> {
     return this;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export abstract class NullState<T> {
-//   private state: T | null;
-
-//   constructor(initialState: T | null = null) {
-//     this.state = initialState;
-//   }
-
-//   public get value(): T | null {
-//     return this.state;
-//   }
-
-//   public set(value: T): this {
-//     this.state = value;
-//     return this;
-//   }
-
-//   public clear(): this {
-//     this.state = null;
-//     return this;
-//   }
-// }

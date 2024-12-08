@@ -78,6 +78,11 @@ export class ActiveState extends BooleanState {
   }
 }
 
+// Initialize.
+const activeState = new ActiveState();
+
+// Deactivate the initial state.
+activeState.deactivate();
 ```
 
 ### `EnumState`
@@ -149,7 +154,7 @@ numberedState.increment();
 // Increment state by 5.
 numberedState.increment(5);
 
-// Reset state to 0..
+// Reset state to 0.
 numberedState.reset();
 ```
 
