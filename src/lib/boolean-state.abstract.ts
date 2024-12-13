@@ -32,23 +32,21 @@ export abstract class BooleanState extends State<boolean> {
   /**
    * Creates an instance of parent class.
    * @constructor
-   * @param {?boolean} [state] Sets initially `boolean` state.
+   * @param {boolean} [state=BooleanState.state] Sets initially `boolean` state.
+   * @param {(boolean | ((newState: boolean, currentState: boolean) => boolean))} [canChange=true]
    * @param {?() => any} [onTrueCallback] Optional callback function performed on each state change to `true`.
    * @param {?() => any} [onFalseCallback] Optional callback function performed on each state change to `false`.
    */
   constructor(
     state: boolean = BooleanState.state,
+    canChange: boolean | ((newState: boolean, currentState: boolean) => boolean) = true,
     onTrueCallback?: () => any,
     onFalseCallback?: () => any,
   ) {
-    super(state);
+    super(state, canChange);
     this.#onTrueCallback = onTrueCallback;
     this.#onFalseCallback = onFalseCallback;
-    if (state) {
-      onTrueCallback?.();
-    } else {
-      onFalseCallback?.();
-    }
+    state ? onTrueCallback?.() : onFalseCallback?.();
   }
 
   /**
@@ -92,17 +90,6 @@ export abstract class BooleanState extends State<boolean> {
    */
   public isTrue() {
     return super.state === true
-  }
-
-  /**
-   * @description Performs the `callback` function on `state`.
-   * @public
-   * @param {(state: boolean) => void} stateCallback The callback function with a `state` to perform.
-   * @returns {this}
-   */
-  public on(stateCallback: (state: boolean) => void): this {
-    stateCallback(this.state);
-    return this;
   }
 
   /**
