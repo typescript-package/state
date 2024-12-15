@@ -54,6 +54,9 @@ export abstract class State<Type> extends ImmutableState {
    * @returns {this}
    */
   protected set(state: Type): this {
+    if (super.isLocked()) {
+      throw new Error('Cannot set when object is locked.');
+    }
     this.#state = state;
     return this;
   }
