@@ -4,7 +4,6 @@ import { Boolean as Disabled, Boolean as Enabled } from "./boolean.class";
  * @description Ability as a `boolean` state (enabled/disabled)
  * @export
  * @class Ability
- * @typedef {Ability}
  */
 export class Ability {
   /**
