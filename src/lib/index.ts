@@ -1,5 +1,4 @@
 // Boolean state.
-export { Ability } from './ability.class';
 export { Boolean } from './boolean.class';
 export { BooleanStates } from './boolean-states.class';
 // Enum state.
@@ -7,6 +6,7 @@ export { Enum } from './enum.class';
 // Object abstract state.
 export { ImmutableState } from './immutable-state.abstract';
 // Data of type abstract state.
+export { Ability } from './ability.abstract';
 export { BooleanState } from './boolean-state.abstract';
 export { EnumState } from './enum-state.abstract';
 export { NullState } from './null-state.abstract';

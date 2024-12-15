@@ -3,9 +3,10 @@ import { Boolean as Disabled, Boolean as Enabled } from "./boolean.class";
 /**
  * @description Ability as a `boolean` state (enabled/disabled)
  * @export
+ * @abstract
  * @class Ability
  */
-export class Ability {
+export abstract class Ability {
   /**
    * @description Default state for the `Disabled` instance.
    * @public
