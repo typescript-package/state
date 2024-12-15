@@ -1,11 +1,10 @@
 // Abstract.
 import { ImmutableState } from "./immutable-state.abstract";
 /**
- * @description Common class for setting the state of `Type`.
+ * @description Common `abstract class` for setting the state of the generic type variable `Type`.
  * @export
  * @abstract
  * @class State
- * @typedef {State}
  * @template Type
  * @extends {ImmutableState}
  */
@@ -16,15 +15,9 @@ export abstract class State<Type> extends ImmutableState {
    * @readonly
    * @type {Type}
    */
-  public get state() {
+  public get state(): Type {
     return this.#state;
   }
-
-  /**
-   * @description
-   * @type {(boolean | ((newState: Type, currentState: Type) => boolean))}
-   */
-  #canChange: boolean | ((newState: Type, currentState: Type) => boolean) = true;
 
   /**
    * @description Privately stored state of `Type`.
@@ -37,30 +30,12 @@ export abstract class State<Type> extends ImmutableState {
    * Creates an instance of parent class.
    * @constructor
    * @param {Type} initialState Initial state of `Type`.
-   * @param {(boolean | ((newState: Type, currentState: Type) => boolean))} [canChange=true]
    */
-  constructor(
-    initialState: Type,
-    canChange: boolean | ((newState: Type, currentState: Type) => boolean) = true
-  ) {
+  constructor(initialState: Type) {
     super();
-    this.set(initialState);
-    this.#canChange = canChange;
+    this.#state = initialState;
   }
-
-  /**
-   * @description
-   * @public
-   * @param {(boolean | ((newState: Type, currentState: Type) => boolean))} [canChange=true]
-   * @returns {this}
-   */
-  public canChange(
-    canChange: boolean | ((newState: Type, currentState: Type) => boolean) = true,
-  ): this {
-    this.#canChange = canChange;
-    return this;
-  }
-
+  
   /**
    * @description Performs the `callback` function on `state`.
    * @public
@@ -73,21 +48,13 @@ export abstract class State<Type> extends ImmutableState {
   }
 
   /**
-   * @description Sets the state if the object is not locked.
+   * @description Sets the state if the object is not locked and is allowed.
    * @public
-   * @param {Type} state
+   * @param {Type} state The state of `Type` to set.
    * @returns {this}
    */
-  protected set(state: Type) {
-    if (super.isLocked()) {
-      throw new Error('Cannot set when object is locked.');
-    }
-
-    const canChange = typeof this.#canChange === 'boolean'
-      ? this.#canChange
-      : this.#canChange(state, this.#state);
-
-    canChange === true && (this.#state = state);
+  protected set(state: Type): this {
+    this.#state = state;
     return this;
   }
 }
