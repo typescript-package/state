@@ -5,7 +5,6 @@ import { State } from "./state.abstract";
  * @export
  * @abstract
  * @class BooleanState
- * @typedef {BooleanState}
  * @extends {State<boolean>}
  */
 export abstract class BooleanState extends State<boolean> {
@@ -30,20 +29,18 @@ export abstract class BooleanState extends State<boolean> {
   #onTrueCallback;
 
   /**
-   * Creates an instance of parent class.
+   * Creates an instance of child class.
    * @constructor
    * @param {boolean} [state=BooleanState.state] Sets initially `boolean` state.
-   * @param {(boolean | ((newState: boolean, currentState: boolean) => boolean))} [canChange=true]
    * @param {?() => any} [onTrueCallback] Optional callback function performed on each state change to `true`.
    * @param {?() => any} [onFalseCallback] Optional callback function performed on each state change to `false`.
    */
   constructor(
     state: boolean = BooleanState.state,
-    canChange: boolean | ((newState: boolean, currentState: boolean) => boolean) = true,
     onTrueCallback?: () => any,
     onFalseCallback?: () => any,
   ) {
-    super(state, canChange);
+    super(state);
     this.#onTrueCallback = onTrueCallback;
     this.#onFalseCallback = onFalseCallback;
     state ? onTrueCallback?.() : onFalseCallback?.();
