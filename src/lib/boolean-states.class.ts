@@ -4,7 +4,6 @@ import { Boolean } from "./boolean.class";
  * @description The class to handle multiple `Boolean` states of the specified names.
  * @export
  * @class BooleanStates
- * @typedef {BooleanStates}
  * @template {string} [Names=string]
  * @template {Boolean} [Object=Boolean]
  */
@@ -30,21 +29,6 @@ export class BooleanStates<
     object: new (...args: any[]) => Object = Boolean as unknown as new (...args: any[]) => Object
   ) {
     names.forEach((name) => this.state[name] = new object());
-  }
-
-  /**
-   * @description Sets the `canChange` to the states of the specified `names`.
-   * @public
-   * @param {(boolean | ((newState: boolean, currentState: boolean) => boolean))} [canChange=true]
-   * @param {...Names[]} names The names of `Object` states to set the `canChange`.
-   * @returns {this}
-   */
-  public canChange(
-    canChange: boolean | ((newState: boolean, currentState: boolean) => boolean) = true,
-    ...names: Names[]
-  ): this {
-    (names || Object.keys(this.state)).forEach(name => this.get(name).canChange(canChange));
-    return this;
   }
 
   /**
