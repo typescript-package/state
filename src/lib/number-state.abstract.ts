@@ -5,7 +5,6 @@ import { State } from "./state.abstract";
  * @export
  * @abstract
  * @class NumberState
- * @typedef {NumberState}
  * @extends {State<number>}
  */
 export abstract class NumberState extends State<number> {
@@ -52,7 +51,7 @@ export abstract class NumberState extends State<number> {
   #resetValue;
 
     /**
-   * Creates an instance of `NumberState`.
+   * Creates an instance of child class.
    * @constructor
    * @param {?number} [state] Sets the initial, and reset state value(if not set).
    * @param {number} [increment=this.#incrementValue] Sets incremental size.

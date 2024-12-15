@@ -27,7 +27,7 @@ export abstract class State<Type> extends ImmutableState {
   #state!: Type;
 
   /**
-   * Creates an instance of parent class.
+   * Creates an instance of child class.
    * @constructor
    * @param {Type} initialState Initial state of `Type`.
    */
