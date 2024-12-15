@@ -5,32 +5,31 @@ import { State } from "./state.abstract";
  * @export
  * @abstract
  * @class EnumState
- * @typedef {EnumState}
  * @template {object} EnumObject
- * @template {EnumObject[keyof EnumObject]} T
- * @extends {State<T>}
+ * @template {EnumObject[keyof EnumObject]} Type
+ * @extends {State<Type>}
  */
 export abstract class EnumState<
   EnumObject extends object,
-  T extends EnumObject[keyof EnumObject]
-> extends State<T> {
+  Type extends EnumObject[keyof EnumObject]
+> extends State<Type> {
   /**
-   * Creates an instance of parent class.
+   * Creates an instance of child class.
    * @constructor
-   * @param {T} state
+   * @param {Type} state
    * @param {EnumObject} enumObject
    */
-  constructor(state: T, enumObject: EnumObject) {
+  constructor(state: Type, enumObject: EnumObject) {
     super(state);
   }
-  
+
   /**
    * @description Checks whether the state is of the specific enum.
    * @public
-   * @param {T} state The specific enum to check whether state is.
+   * @param {Type} state The specific enum to check whether state is.
    * @returns {boolean}
    */
-  public is(state: T) {
+  public is(state: Type) {
     return super.state === state;
   }
 }
