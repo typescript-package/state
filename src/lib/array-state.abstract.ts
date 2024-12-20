@@ -10,6 +10,15 @@ import { State } from "./state.abstract";
  */
 export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   /**
+   * @description Returns the `array` state length.
+   * @public
+   * @returns {number}
+   */
+  public get length() {
+    return super.state.length;
+  }
+
+  /**
    * @inheritdoc Return the frozen readonly state.
    * @public
    * @readonly
@@ -33,6 +42,15 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   constructor(state: Type[]) {
     super(state);
     this.#initialState = state;
+  }
+
+  /**
+   * @description Returns the first element of `array` state.
+   * @public
+   * @returns {Type}
+   */
+  public first(): Type {
+    return this.state[0];
   }
 
   /**
@@ -96,6 +114,15 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   public insert(index: number, value: Type): this {
     super.set([...[...super.state].slice(0, index), value, ...[...super.state].slice(index)]);
     return this;
+  }
+
+  /**
+   * @description Returns the last element of `array` state.
+   * @public
+   * @returns {Type}
+   */
+  public last(): Type {
+    return this.state[this.length];
   }
 
   /**
