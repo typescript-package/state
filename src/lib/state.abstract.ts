@@ -15,7 +15,7 @@ export abstract class State<Type> extends ImmutableState {
    * @readonly
    * @type {Type}
    */
-  public get state(): Type {
+  public get state(): Readonly<Type> {
     return this.#state;
   }
 
