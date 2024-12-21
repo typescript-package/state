@@ -45,16 +45,7 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   }
 
   /**
-   * @description Returns the first element of `array` state.
-   * @public
-   * @returns {Type}
-   */
-  public first(): Type {
-    return this.state[0];
-  }
-
-  /**
-   * @description Adds the `value` at the end of an `array` state.
+   * @description Appends the `value` at the end of an `array` state.
    * @public
    * @param {Type} value The `value` of `Type` to append.
    * @returns {this}
@@ -62,6 +53,16 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   public append(value: Type): this {
     super.set([...super.state, value]);
     return this;
+  }
+
+  /**
+   * @description Returns the value of `Type` from the given `index`.
+   * @public
+   * @param {number} index 
+   * @returns {Type}
+   */
+  public at(index: number): Type | undefined {
+    return this.state.at(index);
   }
 
   /**
@@ -95,13 +96,12 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   }
 
   /**
-   * @description Returns the value of `Type` from the given `index`.
+   * @description Returns the first element of `array` state.
    * @public
-   * @param {number} index
    * @returns {Type}
    */
-  public get(index: number): Type {
-    return this.state[index];
+  public first(): Type {
+    return this.state[0];
   }
 
   /**
@@ -122,7 +122,26 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
    * @returns {Type}
    */
   public last(): Type {
-    return this.state[this.length];
+    return this.state[this.length - 1];
+  }
+
+  /**
+   * @description Merges `values` into the `array` state starting at position.
+   * @public
+   * @param {Type[]} values Array of `Type` to merge with `array` state.
+   * @param {number} [startAt=this.length] The position to start merging `values` with an `array` state.
+   * @returns {this}
+   */
+  public merge(values: Type[], startAt: number = this.length): this {
+    if (startAt < 0 || startAt > this.length) {
+      throw new Error("startAt index is out of bounds");
+    }
+    super.set([
+      ...super.state.slice(0, startAt),
+      ...values,
+      ...super.state.slice(startAt),
+    ]);
+    return this;
   }
 
   /**
@@ -150,12 +169,12 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
   /**
    * @description Removes the values of specified `start` and `end` indexes from `array` state.
    * @public
-   * @param {number} start The start `index` to begin removing.
-   * @param {number} end The end `index` to end removing.
+   * @param {number} startAt The start `index` to begin removing.
+   * @param {number} endAt The end `index` to end removing.
    * @returns {this}
    */
-  public removeRange(start: number, end: number): this {
-    super.set([...super.state].filter((value, index) => !(Array.from({ length: end -1 - start }, (value, i) => start + i)).includes(index)));
+  public removeRange(startAt: number, endAt: number): this {
+    super.set([...super.state].filter((value, index) => !(Array.from({ length: endAt + 1 - startAt }, (value, i) => startAt + i)).includes(index)));
     return this;
   }
 
@@ -169,6 +188,31 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
     return this;
   }
 
+  /**
+   * @inheritdoc
+   * @public
+   * @param {ReadonlyArray<Type>} state
+   * @returns {this}
+   */
+  public override set(state: ReadonlyArray<Type>): this {
+    super.set(state);
+    return this;
+  }
+
+  /**
+   * @description
+   * @public
+   * @param {number} index
+   * @param {number} withIndex
+   * @returns {this}
+   */
+  public swap(index: number, withIndex: number): this {
+    const state = [...this.state];
+    [state[index], state[withIndex]] = [state[withIndex], state[index]];
+    super.set(state);
+    return this;
+  }
+  
   /**
    * @description Updates the `value` at the `index` in the `array` state.
    * @public
