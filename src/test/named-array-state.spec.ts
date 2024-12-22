@@ -2,11 +2,11 @@ import { NamedArrayState } from '../lib/named-array-state.abstract';
 
 export class SomeoneState<Names extends string> extends NamedArrayState<Names, number> {}
 
-let someoneState = new SomeoneState('Someone1', 'Someone2', 'Someone3').set([27, 34, 37, 47]);
+let someoneState = new SomeoneState(['Someone1', 'Someone2', 'Someone3'], [27, 34, 37, 47]);
 
 describe(`NamedArrayState<Names, number>`, () => {
   beforeEach(() => {
-    someoneState = new SomeoneState('Someone1', 'Someone2', 'Someone3').set([27, 34, 37, 47]);
+    someoneState = new SomeoneState(['Someone1', 'Someone2', 'Someone3'], [27, 34, 37, 47]);
   });
 
   it(`someoneState.state`, () => {
