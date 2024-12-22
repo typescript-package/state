@@ -1,5 +1,5 @@
 // Class.
-import { Boolean as Disabled, Boolean as Enabled } from "./boolean";
+import { Boolean as Disabled, Boolean as Enabled } from "../boolean";
 /**
  * @description Ability as a `boolean` state (enabled/disabled)
  * @export
