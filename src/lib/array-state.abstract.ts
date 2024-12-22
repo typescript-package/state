@@ -154,7 +154,17 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
     super.set([...values, ...this.state]);
     return this;
   }
-  
+
+  /**
+   * @description Picks the specified indexes.
+   * @public
+   * @param {...number[]} indexes Indexes to pick from the `array` state.
+   * @returns {Type[]}
+   */
+  public pick(...indexes: number[]): Type[] {
+    return [...super.state].filter((element, index) => indexes.includes(index));
+  }
+
   /**
    * @description Removes the values from the `array` state of the specified `indexes`.
    * @public
