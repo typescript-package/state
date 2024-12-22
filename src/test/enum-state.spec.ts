@@ -1,4 +1,4 @@
-import { EnumState } from "../lib/enum-state.abstract";
+import { EnumState } from "../lib/enum";
 
 enum Active {
   Yes,
