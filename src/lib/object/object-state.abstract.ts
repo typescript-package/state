@@ -1,5 +1,5 @@
 // Abstract.
-import { State } from "./state.abstract";
+import { State } from "../state.abstract";
 /**
  * @description The `abstract class` handles the state of Javascript Object.
  * @export
