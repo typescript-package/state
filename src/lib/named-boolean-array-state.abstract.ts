@@ -19,7 +19,7 @@ export abstract class NamedBooleanArrayState<
    * @param {boolean[]} [values=[]] The `values` of `boolean` type to set to the respective `names`.
    */
   constructor(names: Names[], values: boolean[] = []) {
-    super(names, values);
+    super(names, names.map((name, index) => values.length > -1 && index <= values.length - 1 ? values[index] : !!name));
   }
 
   /**
