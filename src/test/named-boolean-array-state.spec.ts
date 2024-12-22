@@ -29,4 +29,6 @@ describe(`ArrayState<number>`, () => {
   });
 });
 
+console.group(`NamedBooleanArrayState`);
 console.log(`NamedBooleanArrayState`, options);
+console.groupEnd();

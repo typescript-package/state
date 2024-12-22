@@ -46,4 +46,6 @@ describe(`NamedArrayState<Names, number>`, () => {
   });
 
 });
+console.group(`NamedArrayState`);
 console.log(`someoneState`, someoneState);
+console.groupEnd();

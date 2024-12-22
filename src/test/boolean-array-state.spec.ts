@@ -18,4 +18,6 @@ describe(`BooleanArrayState`, () => {
     expect(options.true(0, 1));
   });
 });
-console.log(`BooleanArrayState: `, options);
+console.group(`BooleanArrayState`);
+console.log(`options: `, options);
+console.groupEnd();
