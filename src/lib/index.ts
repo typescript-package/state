@@ -11,12 +11,14 @@ export {
   NamedBooleanArrayState
 } from './array';
 // Enum state.
-export { Enum } from './enum.class';
+export {
+  Enum,
+  EnumState
+} from './enum';
 // Object abstract state.
 export { ImmutableState } from './immutable-state.abstract';
 // Data of type abstract state.
 export { Ability } from './ability.abstract';
-export { EnumState } from './enum-state.abstract';
 export { NullState } from './null-state.abstract';
 export { NumberState } from './number-state.abstract';
 export { ObjectState } from './object-state.abstract';
