@@ -75,11 +75,11 @@ export abstract class BooleanObjectState<
    * @description Updates the state of the specified `names` with the `valueFn`.
    * @private
    * @param {Names[]} [names=[]]
-   * @param {(name: Names) => boolean} valueFn
+   * @param {(name: Names) => boolean} valueFn The function to update the value under the specified `name`.
    * @returns {this}
    */
   private updateState(names: Names[] = [], valueFn: (name: Names) => boolean): this {
-    this.update(
+    names.length > 0 && this.update(
       (names.length > 0 ? names : Object.keys(this.state) as Names[]).reduce<Partial<{[Name in Names]: boolean}>>(
         (partial, name) => (Object.assign(partial, { [name]: valueFn(name) }), partial), {}
       )
