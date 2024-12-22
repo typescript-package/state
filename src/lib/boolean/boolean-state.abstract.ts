@@ -1,5 +1,5 @@
 // Abstract.
-import { State } from "./state.abstract";
+import { State } from "../state.abstract";
 /**
  * @description Handles the `boolean` type state.
  * @export
