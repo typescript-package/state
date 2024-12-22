@@ -1,11 +1,10 @@
 // Abstract.
 import { ObjectState } from "./object-state.abstract";
 /**
- * @description
+ * @description Manages the `object` state of pairs name-boolean.
  * @export
  * @abstract
  * @class BooleanObjectState
- * @typedef {BooleanObjectState}
  * @template {PropertyKey} Names
  * @extends {ObjectState<{[Name in Names]: boolean}>}
  */
