@@ -4,9 +4,10 @@ import { NamedArrayState } from "./named-array-state.abstract";
  * @description Manages the `array` state of `boolean` type with the specified names of generic type variable `Names`.
  * @export
  * @abstract
- * @class NamedBooleanArrayState  
+ * @class NamedBooleanArrayState
+ * @typedef {NamedBooleanArrayState}
  * @template {string} Names
- * @extends {ArrayState<boolean>}
+ * @extends {NamedArrayState<Names, boolean>}
  */
 export abstract class NamedBooleanArrayState<
   Names extends string
@@ -15,9 +16,10 @@ export abstract class NamedBooleanArrayState<
    * Creates an instance of child `class`.
    * @constructor
    * @param {...Names[]} names Arbitrary parameter `names` of generic type variable `Names` to associate `boolean` values.
+   * @param {boolean[]} [values=[]] The `values` of `boolean` type to set to the respective `names`.
    */
-  constructor(...names: Names[]) {
-    super(...names);
+  constructor(names: Names[], values: boolean[] = []) {
+    super(names, values);
   }
 
   /**
