@@ -1,10 +1,12 @@
 // Boolean state.
 export { Boolean } from './boolean.class';
 // Array state.
-export { ArrayState } from './array-state.abstract';
-export { BooleanArrayState } from './boolean-array-state.abstract';
-export { NamedArrayState } from './named-array-state.abstract';
-export { NamedBooleanArrayState } from './named-boolean-array-state.abstract';
+export {
+  ArrayState,
+  BooleanArrayState,
+  NamedArrayState,
+  NamedBooleanArrayState
+} from './array';
 // Enum state.
 export { Enum } from './enum.class';
 // Object abstract state.
