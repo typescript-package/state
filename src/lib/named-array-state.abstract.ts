@@ -41,10 +41,11 @@ export abstract class NamedArrayState<
   /**
    * Creates an instance of child `class`.
    * @constructor
-   * @param {...Names[]} names Arbitrary parameter `names` of generic type variable `Names` to associate `Type` values.
+   * @param {Names[]} names Arbitrary parameter `names` of generic type variable `Names` to associate `Type` values.
+   * @param {Type[]} [values=[]] The `values` to set to the respective `names`.
    */
-  constructor(...names: Names[]) {
-    super([]);
+  constructor(names: Names[], values: Type[] = []) {
+    super(values);
     this.#names = names;
   }
 
