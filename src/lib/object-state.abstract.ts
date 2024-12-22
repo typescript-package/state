@@ -16,11 +16,11 @@ export abstract class ObjectState<Type extends object> extends State<Type> {
    * @type {Type}
    */
   public override get state(): Readonly<Type> {
-    return Object.freeze(Object.create(super.state));
+    return Object.freeze(super.state);
   }
 
   /**
-   * @description
+   * @description The initial state that used in resetting the state.
    * @type {*}
    */
   #initialState;
@@ -28,7 +28,7 @@ export abstract class ObjectState<Type extends object> extends State<Type> {
   /**
    * Creates an instance of child class.
    * @constructor
-   * @param {Type} initialState
+   * @param {Type} initialState The initial state of `Type`.
    */
   constructor(initialState: Type) {
     super(initialState);
@@ -38,6 +38,28 @@ export abstract class ObjectState<Type extends object> extends State<Type> {
   /**
    * @description
    * @public
+   * @template {keyof Type} Key
+   * @param {Key} key
+   * @returns {Type[Key]}
+   */
+  public get<Key extends keyof Type>(key: Key): Type[Key] {
+    return this.state[key];
+  }
+
+  /**
+   * @description
+   * @public
+   * @template {keyof Type} Keys
+   * @param {...Keys[]} keys
+   * @returns {Pick<Type, Keys>}
+   */
+  public pick<Keys extends keyof Type>(...keys: Keys[]): Pick<Type, Keys> {
+    return keys.reduce<Type>((object, key) => (Object.assign(object, {[key]: this.state[key]}), object), {} as Type);
+  }
+
+  /**
+   * @description Resets the state to the initial state set in the `constructor`.
+   * @public
    * @returns {this}
    */
   public reset(): this {
@@ -46,18 +68,29 @@ export abstract class ObjectState<Type extends object> extends State<Type> {
   }
 
   /**
-   * @description Converts the state to JSON.
+   * @inheritdoc
    * @public
-   * @returns {*}
+   * @param {Type} state
+   * @returns {this}
    */
-  public toJSON() {
+  public override set(state: Type): this {
+    super.set(state);
+    return this;
+  }
+
+  /**
+   * @description Converts the state to JSON string.
+   * @public
+   * @returns {string}
+   */
+  public toJSON(): string {
     return JSON.stringify(super.state);
   }
 
   /**
    * @description Updates the state with `partial` value.
    * @public
-   * @param {Partial<Type>} partial The partial object to merge into the state.
+   * @param {Partial<Type>} partial The partial `object` to merge into the state.
    * @returns {this}
    */
   public update(partial: Partial<Type>): this {
