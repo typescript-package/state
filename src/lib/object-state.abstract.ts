@@ -10,7 +10,7 @@ import { State } from "./state.abstract";
  */
 export abstract class ObjectState<Type extends object> extends State<Type> {
   /**
-   * @description Returns a newly created and frozen clone of the current state.
+   * @description Returns the frozen object of the current state.
    * @public
    * @readonly
    * @type {Type}
