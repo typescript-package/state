@@ -1,4 +1,4 @@
-import { ArrayState } from '../lib/array-state.abstract';
+import { ArrayState } from '../lib/array';
 
 export class NumberArrayState extends ArrayState<number> {}
 

@@ -1,4 +1,4 @@
-import { NamedArrayState } from '../lib/named-array-state.abstract';
+import { NamedArrayState } from '../lib/array';
 
 export class SomeoneState<Names extends string> extends NamedArrayState<Names, number> {}
 

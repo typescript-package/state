@@ -1,4 +1,4 @@
-import { NamedBooleanArrayState } from '../lib/named-boolean-array-state.abstract';
+import { NamedBooleanArrayState } from '../lib/array';
 
 
 export class Options<Names extends string> extends NamedBooleanArrayState<Names> {
