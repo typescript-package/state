@@ -17,6 +17,7 @@ export {
 } from './enum';
 // Object state.
 export {
+  BooleanActionObjectState,
   BooleanObjectState,
   ObjectState
 } from './object';
