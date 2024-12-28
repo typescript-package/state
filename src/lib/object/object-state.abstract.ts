@@ -21,40 +21,46 @@ export abstract class ObjectState<Type extends object> extends State<Type> {
 
   /**
    * @description The initial state that used in resetting the state.
-   * @type {*}
+   * @type {Type}
    */
   #initialState;
 
   /**
    * Creates an instance of child class.
    * @constructor
-   * @param {Type} initialState The initial state of `Type`.
+   * @param {Type} state The initial state of `Type`.
    */
-  constructor(initialState: Type) {
-    super(initialState);
-    this.#initialState = initialState;
+  constructor(state: Type) {
+    super(state);
+    this.#initialState = state;
   }
 
   /**
-   * @description
+   * @description Returns the value from the specified `key`.
    * @public
    * @template {keyof Type} Key
-   * @param {Key} key
-   * @returns {Type[Key]}
+   * @param {Key} key The key of generic type variable `Key` to get from the `object` state.
+   * @returns {Type[Key]} The return value is the value from the specified `key` of the `object` state.
    */
   public get<Key extends keyof Type>(key: Key): Type[Key] {
     return this.state[key];
   }
 
   /**
-   * @description
+   * @description Picks the specified `keys` to the returned `object`.
    * @public
    * @template {keyof Type} Keys
-   * @param {...Keys[]} keys
-   * @returns {Pick<Type, Keys>}
+   * @param {...Keys[]} keys Arbitrary parameter `keys` of generic type variable `Keys` to pick from `object` state.
+   * @returns {Pick<Type, Keys>} The returned value is an `object` of `Type` with the specified `keys`.
    */
   public pick<Keys extends keyof Type>(...keys: Keys[]): Pick<Type, Keys> {
-    return keys.reduce<Type>((object, key) => (Object.assign(object, {[key]: this.state[key]}), object), {} as Type);
+    return keys.reduce<Type>(
+      (object, key) => (
+        Object.hasOwn(this.state, key) && Object.assign(object, {[key]: this.state[key]}),
+        object
+      ),
+      {} as Type
+    );
   }
 
   /**
