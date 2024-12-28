@@ -1,17 +1,16 @@
 // Class.
-import { Ability } from '../ability/ability.class';
-import { Selected } from './selected.class';
+import { Ability } from '../ability/ability.abstract';
+import { Boolean as Selected } from '../boolean';
 /**
  * @description Manages the selected state.
  * @export
  * @class Selectable
- * @typedef {Selectable}
  * @extends {Ability}
  */
-export class Selectable extends Ability {
+export abstract class Selectable extends Ability {
   /**
    * @description Privately stored selected state.
-   * @type {*}
+   * @type {Selected}
    */
   #selected = new Selected();
 
@@ -22,16 +21,6 @@ export class Selectable extends Ability {
    */
   public deselect(): this {
     super.isEnabled() && this.#selected.true();
-    return this;
-  }
-
-  /**
-   * @description Sets the selectable state to unselected if the ability is enabled.
-   * @public
-   * @returns {this}
-   */
-  public deselectAll(): this {
-    super.isEnabled() && this.#selected.all.false();
     return this;
   }
 
@@ -55,16 +44,6 @@ export class Selectable extends Ability {
   }
 
   /**
-   * @description Sets the selectable state to selected if the ability is enabled.
-   * @public
-   * @returns {this}
-   */
-  public selectAll(): this {
-    super.isEnabled() && this.#selected.all.true();
-    return this;
-  }
-
-  /**
    * @description Toggles the selectable state between selected and unselected if the ability is enabled.
    * @public
    * @returns {this}
@@ -73,5 +52,4 @@ export class Selectable extends Ability {
     super.isEnabled() && this.#selected.toggle();
     return this;
   }
-
 }
