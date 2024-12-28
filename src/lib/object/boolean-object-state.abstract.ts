@@ -1,23 +1,24 @@
 // Abstract.
-import { ObjectState } from "./object-state.abstract";
+import { NamedObjectState } from "./named-object-state.abstract";
 /**
  * @description Manages the `object` state of pairs name-boolean.
  * @export
  * @abstract
  * @class BooleanObjectState
+ * @typedef {BooleanObjectState}
  * @template {PropertyKey} Names
- * @extends {ObjectState<{[Name in Names]: boolean}>}
+ * @extends {NamedObjectState<Names, boolean>}
  */
 export abstract class BooleanObjectState<
   Names extends PropertyKey,
-> extends ObjectState<{[Name in Names]: boolean}> {
+> extends NamedObjectState<boolean, Names> {
   /**
    * Creates an instance of child class.
    * @constructor
    * @param {Names[]} names
    */
   constructor(names: Names[]) {
-    super({} as {[Name in Names]: boolean}); 
+    super(names); 
     const partial: Partial<{[Name in Names]: boolean}> = {};
     names.forEach(name => Object.assign(partial, {[name]: true}));
     this.update(partial);
