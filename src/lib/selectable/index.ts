@@ -1,3 +1,2 @@
-export { All } from "./all.class";
-export { Selectable } from "./selectable.class";
-export { Selected } from "./selected.class";
+export { Selectable } from './selectable.abstract';
+export { SelectableGroup } from './selectable-group.abstract';
