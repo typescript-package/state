@@ -34,7 +34,7 @@ Simple state management for TypeScript.
   * [`BooleanActionObjectState`](#booleanactionobjectstate)
   * [`BooleanObjectState`](#booleanobjectstate)
   * [`NamedObjectState`](#namedobjectstate)
-  * [`ObjectState`](#objectState)
+  * [`ObjectState`](#objectstate)
   * [`ImmutableState`](#immutablestate)
   * [`NullState`](#nullstate)
   * [`NumberState`](#numberstate)
@@ -113,35 +113,103 @@ connection.isEnabled();
 import { ArrayState } from '@typescript-package/state';
 
 // Extend the ArrayState class for a specific type
-export class Queue extends ArrayState<number> {
-  // Additional custom methods specific to Queue can be added if needed
+export class Numbers extends ArrayState<number> {
+  // Additional custom methods specific to Numbers can be added if needed
 }
 
-const queue = new Queue([27, 28, 29]);
+// Initialize `Numbers`.
+const numbers = new Numbers([27, 28, 29]);
 
 // Append a number to the array state
-queue.append(30);
-console.log(queue.state); // Output: [27, 28, 29, 30]
+numbers.append(30);
+console.log(numbers.state); // Output: [27, 28, 29, 30]
 
 // Insert a number at a specific index
-queue.insert(2, 99);
-console.log(queue.state); // Output: [27, 28, 99, 29, 30]
+numbers.insert(2, 99);
+console.log(numbers.state); // Output: [27, 28, 99, 29, 30]
 
 // Remove a number by index
-queue.remove(1);
-console.log(queue.state); // Output: [27, 99, 29, 30]
+numbers.remove(1);
+console.log(numbers.state); // Output: [27, 99, 29, 30]
 
 // Pick specific indexes
-const picked = queue.pick(0, 2);
+const picked = numbers.pick(0, 2);
 console.log(picked); // Output: [27, 29]
 
 // Swap two elements
-queue.swap(1, 3);
-console.log(queue.state); // Output: [27, 30, 29, 99]
+numbers.swap(1, 3);
+console.log(numbers.state); // Output: [27, 30, 29, 99]
 
 // Reset the state to its initial state
-queue.reset();
-console.log(queue.state); // Output: [27, 28, 29]
+numbers.reset();
+console.log(numbers.state); // Output: [27, 28, 29]
+```
+
+```typescript
+import { ArrayState } from '@typescript-package/state';
+
+// Extend the ArrayState class for a specific type
+export class Queue extends ArrayState<number> {
+  /**
+   * Adds an item to the end of the queue (enqueue operation).
+   * @param {number} value - The number to add to the queue.
+   * @returns {this}
+   */
+  public enqueue(value: number): this {
+    return this.append(value);
+  }
+
+  /**
+   * Removes and returns the item at the front of the queue (dequeue operation).
+   * @returns {number | undefined} - The dequeued number or undefined if the queue is empty.
+   */
+  public dequeue(): number | undefined {
+    const front = this.first();
+    this.remove(0); // Remove the first element
+    return front;
+  }
+
+  /**
+   * Returns the item at the front of the queue without removing it.
+   * @returns {number | undefined} - The number at the front of the queue.
+   */
+  public peek(): number | undefined {
+    return this.first();
+  }
+
+  /**
+   * Checks if the queue is empty.
+   * @returns {boolean} - True if the queue is empty, false otherwise.
+   */
+  public isEmpty(): boolean {
+    return this.length === 0;
+  }
+}
+
+// Initialize `Queue`.
+const queue = new Queue([27, 28, 29]);
+
+// Enqueue a number
+queue.enqueue(30);
+console.log(queue.state); // Output: [27, 28, 29, 30]
+
+// Dequeue a number
+const dequeued = queue.dequeue();
+console.log(dequeued); // Output: 27
+console.log(queue.state); // Output: [28, 29, 30]
+
+// Peek at the front of the queue
+const front = queue.peek();
+console.log(front); // Output: 28
+
+// Check if the queue is empty
+console.log(queue.isEmpty()); // Output: false
+
+// Dequeue all items
+queue.dequeue();
+queue.dequeue();
+queue.dequeue();
+console.log(queue.isEmpty()); // Output: true
 ```
 
 ### `BooleanArrayState`
@@ -256,26 +324,31 @@ activeEnum.is(Active.No)
 ### `BooleanActionObjectState`
 
 ```typescript
+import { BooleanActionObjectState } from '@typescript-package/state';
 ```
 
 ### `BooleanObjectState`
 
 ```typescript
+import { BooleanObjectState } from '@typescript-package/state';
 ```
 
 ### `NamedObjectState`
 
 ```typescript
+import { NamedObjectState } from '@typescript-package/state';
 ```
 
 ### `ObjectState`
 
 ```typescript
+import { ObjectState } from '@typescript-package/state';
 ```
 
 ### `ImmutableState`
 
 ```typescript
+import { ImmutableState } from '@typescript-package/state';
 ```
 
 ### `NullState`
@@ -328,6 +401,7 @@ numberedState.reset();
 ### `State`
 
 ```typescript
+import { State } from '@typescript-package/state';
 ```
 
 ## Immutability
