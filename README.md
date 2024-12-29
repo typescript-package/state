@@ -26,16 +26,16 @@ Simple state management for TypeScript.
   * [`ArrayState`](#arraystate)
   * [`BooleanArrayState`](#booleanarraystate)
   * [`NamedArrayState`](#namedarraystate)
-  * [`NamedBooleanArrayState`](#namedbooleanarraystate)
-  * [`Boolean`](#boolean)
+  * `NamedBooleanArrayState`
+  * `Boolean`
   * [`BooleanState`](#booleanstate)
-  * [`Enum`](#enum)
+  * `Enum`
   * [`EnumState`](#enumstate)
   * [`BooleanActionObjectState`](#booleanactionobjectstate)
-  * [`BooleanObjectState`](#booleanobjectstate)
-  * [`NamedObjectState`](#namedobjectstate)
-  * [`ObjectState`](#objectstate)
-  * [`ImmutableState`](#immutablestate)
+  * `BooleanObjectState`
+  * `NamedObjectState`
+  * `ObjectState`
+  * `ImmutableState`
   * [`NullState`](#nullstate)
   * [`NumberState`](#numberstate)
   * [`State`](#state)
@@ -247,18 +247,49 @@ console.log(booleanArrayState.state); // Output: [true, true, true, true]
 
 ```typescript
 import { NamedArrayState } from '@typescript-package/state';
-```
 
-### `NamedBooleanArrayState`
+// Extend the NamedArrayState class for a specific type
+export class AppConfiguration extends NamedArrayState<'theme' | 'language' | 'notifications', string | boolean> {
+  constructor() {
+    super(
+      ['theme', 'language', 'notifications'], // Names of the configuration settings
+      ['dark', 'en', true]                    // Default values
+    );
+  }
 
-```typescript
-import { NamedBooleanArrayState } from '@typescript-package/state';
-```
+  /**
+   * Updates the value of a specific configuration by name.
+   * @param {string} name - The name of the configuration to update.
+   * @param {string | boolean} value - The new value to set.
+   */
+  public updateConfiguration(name: 'theme' | 'language' | 'notifications', value: string | boolean) {
+    this.update(this.indexOf(name), value);
+  }
+}
 
-### `Boolean`
+// Initialize.
+const config = new AppConfiguration();
 
-```typescript
-import { Boolean } from '@typescript-package/state';
+// View the current state as an object
+console.log(config.toObject()); // Output: { theme: 'dark', language: 'en', notifications: true }
+
+// Get the value of a specific setting
+console.log(config.get('theme')); // Output: 'dark'
+
+// Update a specific configuration setting
+config.updateConfiguration('theme', 'light');
+console.log(config.get('theme')); // Output: 'light'
+
+// Selecting multiple configuration options
+const selectedValues = config.select('theme', 'language');
+console.log(selectedValues); // Output: ['light', 'en']
+
+// Retrieve state with names as tuples
+console.log(config.stateWithNames); // Output: [['theme', 'light'], ['language', 'en'], ['notifications', true]]
+
+// Reset the configuration state to its initial value
+config.reset();
+console.log(config.toObject()); // Output: { theme: 'dark', language: 'en', notifications: true }
 ```
 
 ### `BooleanState`
@@ -290,12 +321,6 @@ const activeState = new ActiveState();
 
 // Deactivate the initial state.
 activeState.deactivate();
-```
-
-### `Enum`
-
-```typescript
-import { Enum } from '@typescript-package/state';
 ```
 
 ### `EnumState`
@@ -352,30 +377,6 @@ console.log(connection.isConnected()); // Output: false
 // Dispatches the `connect` action.
 connection.dispatch('connect');
 console.log(connection.isConnected()); // Output: true
-```
-
-### `BooleanObjectState`
-
-```typescript
-import { BooleanObjectState } from '@typescript-package/state';
-```
-
-### `NamedObjectState`
-
-```typescript
-import { NamedObjectState } from '@typescript-package/state';
-```
-
-### `ObjectState`
-
-```typescript
-import { ObjectState } from '@typescript-package/state';
-```
-
-### `ImmutableState`
-
-```typescript
-import { ImmutableState } from '@typescript-package/state';
 ```
 
 ### `NullState`
