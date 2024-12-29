@@ -23,23 +23,18 @@ Simple state management for TypeScript.
 * [Installation](#installation)
 * [Api](#api)
   * [`Ability`](#ability)
-
   * [`ArrayState`](#arraystate)
   * [`BooleanArrayState`](#booleanarraystate)
   * [`NamedArrayState`](#namedarraystate)
   * [`NamedBooleanArrayState`](#namedbooleanarraystate)
-
   * [`Boolean`](#boolean)
   * [`BooleanState`](#booleanstate)
-
   * [`Enum`](#enum)
   * [`EnumState`](#enumstate)
-
   * [`BooleanActionObjectState`](#booleanactionobjectstate)
   * [`BooleanObjectState`](#booleanobjectstate)
   * [`NamedObjectState`](#namedobjectstate)
   * [`ObjectState`](#objectState)
-
   * [`ImmutableState`](#immutablestate)
   * [`NullState`](#nullstate)
   * [`NumberState`](#numberstate)
