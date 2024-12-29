@@ -5,7 +5,6 @@ import { NamedObjectState } from "./named-object-state.abstract";
  * @export
  * @abstract
  * @class BooleanObjectState
- * @typedef {BooleanObjectState}
  * @template {PropertyKey} Names
  * @extends {NamedObjectState<Names, boolean>}
  */
@@ -32,7 +31,7 @@ export abstract class BooleanObjectState<
    * @returns {this}
    */
   public false<Name extends Names>(...names: Name[]): this {
-    this.updateState(names, () => false);
+    this.updateNames(names, () => false);
     return this;
   }
 
@@ -56,7 +55,7 @@ export abstract class BooleanObjectState<
    * @returns {this}
    */
   public toggle<Name extends Names>(...names: Name[]): this {
-    this.updateState(names, name => !this.state[name]);
+    this.updateNames(names, name => !this.state[name]);
     return this;
   }
 
@@ -68,7 +67,7 @@ export abstract class BooleanObjectState<
    * @returns {this}
    */
   public true<Name extends Names>(...names: Name[]): this {
-    this.updateState(names, () => true);
+    this.updateNames(names, () => true);
     return this;
   }
 
@@ -76,13 +75,13 @@ export abstract class BooleanObjectState<
    * @description Updates the state of the specified `names` with the `valueFn`.
    * @private
    * @param {Names[]} [names=[]]
-   * @param {(name: Names) => boolean} valueFn The function to update the value under the specified `name`.
+   * @param {(name: Names) => boolean} callbackFn The function to update the value under the specified `name`.
    * @returns {this}
    */
-  private updateState(names: Names[] = [], valueFn: (name: Names) => boolean): this {
+  private updateNames(names: Names[] = [], callbackFn: (name: Names) => boolean): this {
     names.length > 0 && this.update(
       (names.length > 0 ? names : Object.keys(this.state) as Names[]).reduce<Partial<{[Name in Names]: boolean}>>(
-        (partial, name) => (Object.assign(partial, { [name]: valueFn(name) }), partial), {}
+        (partial, name) => (Object.assign(partial, { [name]: callbackFn(name) }), partial), {}
       )
     );
     return this;
