@@ -20,7 +20,7 @@ export abstract class Selectable extends Ability {
    * @returns {this}
    */
   public deselect(): this {
-    super.isEnabled() && this.#selected.true();
+    super.isEnabled() && this.#selected.false();
     return this;
   }
 
