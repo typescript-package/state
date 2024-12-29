@@ -9,7 +9,7 @@
 
 ## typescript-package/state
 
-Simple state management for TypeScript.
+Simple state management for different types in TypeScript.
 
 <!-- npm badge -->
 [![npm version][typescript-package-npm-badge-svg]][typescript-package-npm-badge]
