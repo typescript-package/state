@@ -22,10 +22,28 @@ Simple state management for TypeScript.
 
 * [Installation](#installation)
 * [Api](#api)
+  * [`Ability`](#ability)
+
+  * [`ArrayState`](#arraystate)
+  * [`BooleanArrayState`](#booleanarraystate)
+  * [`NamedArrayState`](#namedarraystate)
+  * [`NamedBooleanArrayState`](#namedbooleanarraystate)
+
+  * [`Boolean`](#boolean)
   * [`BooleanState`](#booleanstate)
+
+  * [`Enum`](#enum)
   * [`EnumState`](#enumstate)
+
+  * [`BooleanActionObjectState`](#booleanactionobjectstate)
+  * [`BooleanObjectState`](#booleanobjectstate)
+  * [`NamedObjectState`](#namedobjectstate)
+  * [`ObjectState`](#objectState)
+
+  * [`ImmutableState`](#immutablestate)
   * [`NullState`](#nullstate)
   * [`NumberState`](#numberstate)
+  * [`State`](#state)
 * [Immutability](#immutability)
   * [Sealed](#sealed)
   * [Frozen](#frozen)
@@ -45,13 +63,137 @@ npm install @typescript-package/state
 
 ```typescript
 import {
+  Ability,
+
+  // Array.
+  ArrayState,
+  BooleanArrayState,
+  NamedArrayState,
+  NamedBooleanArrayState,
+
+  // Boolean.
+  Boolean,
   BooleanState,
+
+  // Enum.
+  Enum,
   EnumState,
+
+  // Object.
+  BooleanActionObjectState,
+  BooleanObjectState,
+  NamedObjectState,
+  ObjectState,
+
   NullState,
   NumberState,
   ImmutableState,
   State
 } from '@typescript-package/state';
+```
+
+### `Ability`
+
+```typescript
+import { Ability } from '@typescript-package/state';
+
+// Extend the Ability class for a specific type
+export class Connection extends Ability {}
+
+// Initialize the connection.
+const connection = new Connection();
+
+// Disables the connection.
+connection.disable();
+connection.isDisabled();
+
+// Enables the connection.
+connection.enable();
+connection.isEnabled();
+```
+
+### `ArrayState`
+
+```typescript
+import { ArrayState } from '@typescript-package/state';
+
+// Extend the ArrayState class for a specific type
+export class Queue extends ArrayState<number> {
+  // Additional custom methods specific to Queue can be added if needed
+}
+
+const queue = new Queue([27, 28, 29]);
+
+// Append a number to the array state
+queue.append(30);
+console.log(queue.state); // Output: [27, 28, 29, 30]
+
+// Insert a number at a specific index
+queue.insert(2, 99);
+console.log(queue.state); // Output: [27, 28, 99, 29, 30]
+
+// Remove a number by index
+queue.remove(1);
+console.log(queue.state); // Output: [27, 99, 29, 30]
+
+// Pick specific indexes
+const picked = queue.pick(0, 2);
+console.log(picked); // Output: [27, 29]
+
+// Swap two elements
+queue.swap(1, 3);
+console.log(queue.state); // Output: [27, 30, 29, 99]
+
+// Reset the state to its initial state
+queue.reset();
+console.log(queue.state); // Output: [27, 28, 29]
+```
+
+### `BooleanArrayState`
+
+```typescript
+import { BooleanArrayState as AbstractBooleanArrayState } from '@typescript-package/state';
+
+// Extend the AbstractBooleanArrayState class for a specific type
+export class BooleanArrayState extends AbstractBooleanArrayState {
+  // Additional custom methods specific to BooleanArrayState can be added if needed
+}
+
+let booleanArrayState = new BooleanArrayState(false, false, true, true);
+
+// Sets all values to `false`.
+booleanArrayState.false();
+console.log(booleanArrayState.state); // Output: [false, false, false, false]
+
+// Toggles all values to `true`.
+booleanArrayState.toggle();
+console.log(booleanArrayState.state); // Output: [true, true, true, true]
+
+// Toggles all values to `false`.
+booleanArrayState.toggle();
+console.log(booleanArrayState.state); // Output: [false, false, false, false]
+
+// Sets all values to `true`.
+booleanArrayState.true();
+console.log(booleanArrayState.state); // Output: [true, true, true, true]
+```
+
+### `NamedArrayState`
+
+```typescript
+import { NamedArrayState } from '@typescript-package/state';
+```
+
+### `NamedBooleanArrayState`
+
+```typescript
+import { NamedBooleanArrayState } from '@typescript-package/state';
+```
+
+### `Boolean`
+
+```typescript
+import { Boolean } from '@typescript-package/state';
 ```
 
 ### `BooleanState`
@@ -85,6 +227,12 @@ const activeState = new ActiveState();
 activeState.deactivate();
 ```
 
+### `Enum`
+
+```typescript
+import { Enum } from '@typescript-package/state';
+```
+
 ### `EnumState`
 
 ```typescript
@@ -101,7 +249,6 @@ export class ActiveEnum extends EnumState<typeof Active, Active> {
   constructor(state: Active) {
     super(state, Active);
   }
-
 }
 
 // Initialize.
@@ -109,6 +256,31 @@ const activeEnum = new ActiveEnum(Active.No);
 
 // Check whether enum is set to `No`.
 activeEnum.is(Active.No)
+```
+
+### `BooleanActionObjectState`
+
+```typescript
+```
+
+### `BooleanObjectState`
+
+```typescript
+```
+
+### `NamedObjectState`
+
+```typescript
+```
+
+### `ObjectState`
+
+```typescript
+```
+
+### `ImmutableState`
+
+```typescript
 ```
 
 ### `NullState`
@@ -156,6 +328,11 @@ numberedState.increment(5);
 
 // Reset state to 0.
 numberedState.reset();
+```
+
+### `State`
+
+```typescript
 ```
 
 ## Immutability
