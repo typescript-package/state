@@ -38,7 +38,7 @@ Simple state management for TypeScript.
   * `ImmutableState`
   * [`NullState`](#nullstate)
   * [`NumberState`](#numberstate)
-  * [`State`](#state)
+  * `State`
 * [Immutability](#immutability)
   * [Sealed](#sealed)
   * [Frozen](#frozen)
@@ -424,12 +424,6 @@ numberedState.increment(5);
 
 // Reset state to 0.
 numberedState.reset();
-```
-
-### `State`
-
-```typescript
-import { State } from '@typescript-package/state';
 ```
 
 ## Immutability
