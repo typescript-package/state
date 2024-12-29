@@ -17,25 +17,25 @@ export abstract class BooleanActionObjectState<
    * @description
    * @type {*}
    */
-  #actions = new Map<Actions[], Names[]>();
+  #actions = new Set<Actions>();
 
   /**
    * Creates an instance of child `class`.
    * @constructor
    * @param {Names[]} names
-   * @param {?[Actions[], Names[]][]} [actions]
+   * @param {?Actions[]} [actions]
    */
   constructor(
     names: Names[],
-    actions?: [Actions[], Names[]][],
+    actions?: Actions[],
   ) {
     super(names);
-    actions?.forEach(([names, states]) => this.#actions.set(names, states))
-    this.#actions.forEach(names => this.true(names[0]).false(...names.slice(1)));
+    actions?.forEach(action => this.#actions.add(action));
+    this.#actions.size > 0 && this.true(super.names[0]).false(...super.names.slice(1));
   }
 
   /**
-   * @description
+   * @description Dispatch the `action` to set the first value in 
    * @public
    * @template {Actions} Action
    * @param {Action} action
@@ -44,9 +44,9 @@ export abstract class BooleanActionObjectState<
     for (const [actions, names] of this.#actions) {
       if (actions.includes(action)) {
         if (actions.indexOf(action) === 0) {
-          this.true(names[0]).false(...names.slice(1));
+          this.true(super.names[0]).false(...super.names.slice(1));
         } else {
-          this.false(names[0]).true(...names.slice(1));
+          this.false(super.names[0]).true(...super.names.slice(1));
         }
         break;
       }
