@@ -10,7 +10,7 @@ import { State } from "./state.abstract";
  */
 export abstract class NullState extends State<null | undefined> {
   /**
-   * Creates an instance of parent class.
+   * Creates an instance of child class.
    * @constructor
    * @param {?null} [state]
    */

@@ -1,11 +1,10 @@
 // Abstract.
 import { ImmutableState } from "./immutable-state.abstract";
 /**
- * @description Common class for setting the state of `Type`.
+ * @description Common `abstract class` for setting the state of the generic type variable `Type`.
  * @export
  * @abstract
  * @class State
- * @typedef {State}
  * @template Type
  * @extends {ImmutableState}
  */
@@ -16,7 +15,7 @@ export abstract class State<Type> extends ImmutableState {
    * @readonly
    * @type {Type}
    */
-  public get state() {
+  public get state(): Readonly<Type> {
     return this.#state;
   }
 
@@ -28,22 +27,33 @@ export abstract class State<Type> extends ImmutableState {
   #state!: Type;
 
   /**
-   * Creates an instance of parent class.
+   * Creates an instance of child class.
    * @constructor
-   * @param {Type} [initialState] Initial state of `Type`.
+   * @param {Type} initialState Initial state of `Type`.
    */
   constructor(initialState: Type) {
     super();
-    this.set(initialState);
+    this.#state = initialState;
+  }
+  
+  /**
+   * @description Performs the `callback` function on `state`.
+   * @public
+   * @param {(state: Type) => void} stateCallback The callback function with a `state` to perform.
+   * @returns {this}
+   */
+  public on(stateCallback: (state: Type) => void): this {
+    stateCallback(this.#state);
+    return this;
   }
 
   /**
-   * @description Sets the state if the object is not locked.
+   * @description Sets the state if the object is not locked and is allowed.
    * @public
-   * @param {Type} state
+   * @param {Type} state The state of `Type` to set.
    * @returns {this}
    */
-  protected set(state: Type) {
+  protected set(state: Type): this {
     if (super.isLocked()) {
       throw new Error('Cannot set when object is locked.');
     }

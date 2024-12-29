@@ -10,7 +10,7 @@ export abstract class ImmutableState {
    * @description Privately stored locked state as 'locked' if locked, otherwise `undefined`.
    * @type {?'locked'}
    */
-  #state?: 'locked';
+  #locked?: 'locked';
 
   /**
    * @description "Prevents the modification of existing property attributes and values, and prevents the addition of new properties."
@@ -40,7 +40,7 @@ export abstract class ImmutableState {
    * @returns {"locked"}
    */
   public isLocked() {
-    return this.#state === 'locked';
+    return this.#locked === 'locked';
   }
 
   /**
@@ -71,7 +71,7 @@ export abstract class ImmutableState {
     if (!this.isFrozen()) {
       this.freeze();
     }
-    this.#state = 'locked';
+    this.#locked = 'locked';
     return this;
   }
 

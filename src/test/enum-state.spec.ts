@@ -1,4 +1,4 @@
-import { EnumState } from "../lib/enum-state.abstract";
+import { EnumState } from "../lib/enum";
 
 enum Active {
   Yes,
@@ -14,4 +14,6 @@ export class ActiveEnum extends EnumState<typeof Active, Active> {
 
 const activeEnum = new ActiveEnum(Active.No);
 
+console.group('EnumState');
 console.log(activeEnum.is(Active.No));
+console.groupEnd();
