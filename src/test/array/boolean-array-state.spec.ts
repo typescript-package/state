@@ -103,4 +103,23 @@ describe(`BooleanArrayState`, () => {
 });
 console.group(`BooleanArrayState`);
 console.info(`booleanArrayState.state: `, booleanArrayState.state);
+
+booleanArrayState = new BooleanArrayState(false, false, true, true);
+
+// Sets all values to `false`.
+booleanArrayState.false();
+console.log(booleanArrayState.state); // Output: [false, false, false, false]
+
+// Toggles all values to `true`.
+booleanArrayState.toggle();
+console.log(booleanArrayState.state); // Output: [true, true, true, true]
+
+// Toggles all values to `false`.
+booleanArrayState.toggle();
+console.log(booleanArrayState.state); // Output: [false, false, false, false]
+
+// Sets all values to `true`.
+booleanArrayState.true();
+console.log(booleanArrayState.state); // Output: [true, true, true, true]
+
 console.groupEnd();
