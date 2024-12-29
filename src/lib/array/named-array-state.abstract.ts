@@ -100,15 +100,4 @@ export abstract class NamedArrayState<
   protected indexesOf(...names: Names[]): number[] {
     return names.map(name => this.#names.indexOf(name));
   }
-
-  /**
-   * @description Private method to update the state of the specified `indexes` by using function `state`.
-   * @protected
-   * @param {number[]} indexes `Array` type indexes of `number` type to update the value.
-   * @param {(index: number) => Type} state The `function` to update the state under the specified `index`.
-   * @returns {Type[]}
-   */
-  protected updateState(indexes: number[], state: (index: number) => Type): Type[] {
-    return super.state.map((value, index) => indexes.includes(index) ? state(index) : value);
-  }
 }

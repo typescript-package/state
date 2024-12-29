@@ -234,4 +234,16 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
     super.set(this.state.map((v, i) => (i === index ? value : v)));
     return this;
   }
+
+  /**
+   * @description Protected method to update the state of the specified `indexes` by using callback function.
+   * @protected
+   * @param {number[]} indexes Indexes to update the state.
+   * @param {(value: Type, index: number) => Type} callbackFn The callback function to update the state at index.
+   * @returns {Type[]}
+   */
+  protected updateIndexes(indexes: number[], callbackFn: (value: Type, index: number) => Type): Type[] {
+    indexes = (indexes.length > 0 ? indexes : Array.from({ length: super.state.length }, (_, i) => 0 + i));
+    return super.state.map((value, index) => indexes.includes(index) ? callbackFn(super.state[index], index) : value);
+  }
 }

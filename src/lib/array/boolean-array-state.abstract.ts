@@ -24,7 +24,7 @@ export abstract class BooleanArrayState extends ArrayState<boolean> {
    * @returns {this}
    */
   public false(...indexes: number[]): this {
-    super.set(this.updateState(indexes, () => false));
+    super.set(this.updateIndexes(indexes, () => false));
     return this;
   }
 
@@ -35,7 +35,7 @@ export abstract class BooleanArrayState extends ArrayState<boolean> {
    * @returns {this}
    */
   public toggle(...indexes: number[]): this {
-    super.set(this.updateState(indexes, (index) => !super.state[index]));
+    super.set(this.updateIndexes(indexes, value => !value));
     return this;
   }
 
@@ -46,18 +46,7 @@ export abstract class BooleanArrayState extends ArrayState<boolean> {
    * @returns {this}
    */
   public true(...indexes: number[]): this {
-    super.set(this.updateState(indexes, () => true));
+    super.set(this.updateIndexes(indexes, () => true));
     return this;
-  }
-
-  /**
-   * @description Updates the `boolean` states of the specified `indexes`.
-   * @private
-   * @param {number[]} indexes Indexes to update the state.
-   * @param {(index: number) => boolean} state The state of `function` type to update.
-   * @returns {boolean[]}
-   */
-  private updateState(indexes: number[], state: (index: number) => boolean): boolean[] {
-    return super.state.map((value, index) => indexes.includes(index) ? state(index) : value);
   }
 }

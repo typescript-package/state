@@ -29,7 +29,7 @@ export abstract class NamedBooleanArrayState<
    * @returns {this}
    */
   public false(...names: Names[]): this {
-    super.set(this.updateState(this.indexesOf(...names), () => false));
+    super.set(this.updateIndexes(this.indexesOf(...names), () => false));
     return this;
   }
 
@@ -40,7 +40,7 @@ export abstract class NamedBooleanArrayState<
    * @returns {this}
    */
   public toggle(...names: Names[]): this {
-    super.set(super.updateState(this.indexesOf(...names), index => !super.state[index]));
+    super.set(super.updateIndexes(this.indexesOf(...names), value => !value));
     return this;
   }
 
@@ -51,7 +51,7 @@ export abstract class NamedBooleanArrayState<
    * @returns {this}
    */
   public true(...names: Names[]): this {
-    super.set(super.updateState(this.indexesOf(...names), () => true));
+    super.set(super.updateIndexes(this.indexesOf(...names), () => true));
     return this;
   }
 }
