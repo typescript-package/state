@@ -145,6 +145,8 @@ numbers.reset();
 console.log(numbers.state); // Output: [27, 28, 29]
 ```
 
+A simple queue implementation.
+
 ```typescript
 import { ArrayState } from '@typescript-package/state';
 
@@ -325,6 +327,31 @@ activeEnum.is(Active.No)
 
 ```typescript
 import { BooleanActionObjectState } from '@typescript-package/state';
+
+// Extend the BooleanActionObjectState class for a specific type
+export class Connection<Names extends PropertyKey, Actions extends string> extends BooleanActionObjectState<Names, Actions> {
+  /**
+   * Checks whether connection is connected.
+   * @returns {boolean}
+   */
+  public isConnected() {
+    return this.is("connected" as any, true);
+  }
+}
+// Initialize the `Connection` with state `connected` and actions `connect` and `disconnect`.
+const connection = new Connection(['connected'], ['connect', 'disconnect']);
+
+// Dispatches the `connect` action.
+connection.dispatch('connect');
+console.log(connection.isConnected()); // Output: true
+
+// Dispatches the `disconnect` action.
+connection.dispatch('disconnect');
+console.log(connection.isConnected()); // Output: false
+
+// Dispatches the `connect` action.
+connection.dispatch('connect');
+console.log(connection.isConnected()); // Output: true
 ```
 
 ### `BooleanObjectState`
