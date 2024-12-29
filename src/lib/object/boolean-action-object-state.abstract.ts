@@ -35,21 +35,22 @@ export abstract class BooleanActionObjectState<
   }
 
   /**
-   * @description Dispatch the `action` to set the first value in 
+   * @description Dispatches the action where first action sets the first state to `true`.
    * @public
-   * @template {Actions} Action
-   * @param {Action} action
+   * @template {Actions} Action 
+   * @param {Action} action The action name to dispatch.
+   * @returns {this}
    */
-  public dispatch<Action extends Actions>(action: Action) {
-    for (const [actions, names] of this.#actions) {
-      if (actions.includes(action)) {
-        if (actions.indexOf(action) === 0) {
-          this.true(super.names[0]).false(...super.names.slice(1));
-        } else {
-          this.false(super.names[0]).true(...super.names.slice(1));
-        }
-        break;
-      }
+  public dispatch<Action extends Actions>(action: Action): this {
+    const [firstValue] = [...this.#actions];
+    const restNames = super.names.slice(1);
+    if (firstValue === action) {
+      this.true(super.names[0]);
+      restNames.length > 0 && this.false(...restNames);
+    } else {
+      this.false(super.names[0]);
+      restNames.length > 0 && this.true(...restNames);
     }
+    return this;
   }
 }
