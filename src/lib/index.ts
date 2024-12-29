@@ -1,8 +1,6 @@
-// Boolean state.
-export {
-  Boolean,
-  BooleanState
-} from './boolean';
+// Ability.
+export { Ability } from './ability';
+
 // Array state.
 export {
   ArrayState,
@@ -10,22 +8,28 @@ export {
   NamedArrayState,
   NamedBooleanArrayState
 } from './array';
+
+// Boolean state.
+export {
+  Boolean,
+  BooleanState
+} from './boolean';
+
 // Enum state.
 export {
   Enum,
   EnumState
 } from './enum';
+
 // Object state.
 export {
   BooleanActionObjectState,
   BooleanObjectState,
+  NamedObjectState,
   ObjectState
 } from './object';
-// Object abstract state.
+
 export { ImmutableState } from './immutable-state.abstract';
-// Data of type abstract state.
-export { Ability } from './ability.abstract';
 export { NullState } from './null-state.abstract';
 export { NumberState } from './number-state.abstract';
-// Common abstract state.
 export { State } from './state.abstract';
