@@ -44,11 +44,11 @@ Simple state management for different types in TypeScript.
     - `SelectablePrivate`
     - `SelectableWeakMap`
   - **Main**
-    - `HistoryState`
     - `ImmutableState`
     - [`NullState`](#nullstate)
     - [`NumberState`](#numberstate)
     - `State`
+    - `StateHistory`
     - `StringState`
 - [Immutability](#immutability)
   - [Sealed](#sealed)
@@ -101,11 +101,11 @@ import {
   SelectableWeakMap,
 
   // Main.
-  HistoryState,
   ImmutableState,
   NullState,
   NumberState,
   State,
+  StateHistory,
   StringState,
 } from '@typescript-package/state';
 ```
