@@ -38,7 +38,7 @@ export {
 } from './selectable';
 
 // Main.
-export { HistoryState } from './history-state.class';
+export { StateHistory } from './state-history.abstract';
 export { ImmutableState } from './immutable-state.abstract';
 export { NullState } from './null-state.abstract';
 export { NumberState } from './number-state.abstract';
