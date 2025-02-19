@@ -1,5 +1,5 @@
 // Abstract.
-import { ImmutableState } from "./immutable-state.abstract";
+import { StateImmutable } from "./state-immutable.abstract";
 /**
  * @description Common `abstract class` for setting the state of the generic type variable `Type`.
  * 1. **Memory Efficiency**: Uses weak references to allow for garbage collection of state when the object is no longer in use.
@@ -8,9 +8,9 @@ import { ImmutableState } from "./immutable-state.abstract";
  * @abstract
  * @class State
  * @template Type
- * @extends {ImmutableState}
+ * @extends {StateImmutable}
  */
-export abstract class State<Type> extends ImmutableState {
+export abstract class State<Type> extends StateImmutable {
   /**
    * @description Privately stored state of `Type`.
    * @static
