@@ -20,6 +20,7 @@ export {
   NamedObjectState,
   ObjectState,
 
+  HistoryState,
   ImmutableState,
   NullState,
   NumberState,

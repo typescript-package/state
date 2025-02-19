@@ -29,7 +29,9 @@ export {
   ObjectState
 } from './object';
 
+export { HistoryState } from './history-state.class';
 export { ImmutableState } from './immutable-state.abstract';
 export { NullState } from './null-state.abstract';
 export { NumberState } from './number-state.abstract';
 export { State } from './state.abstract';
+export { StringState } from './string-state.abstract';
