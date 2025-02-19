@@ -39,7 +39,7 @@ export {
 
 // Main.
 export { StateHistory } from './state-history.abstract';
-export { ImmutableState } from './immutable-state.abstract';
+export { StateImmutable } from './state-immutable.abstract';
 export { NullState } from './null-state.abstract';
 export { NumberState } from './number-state.abstract';
 export { State } from './state.abstract';

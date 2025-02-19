@@ -31,10 +31,10 @@ export {
   SelectableWeakMap,
 
   // Main.
-  ImmutableState,
   NullState,
   NumberState,
   State,
   StateHistory,
+  StateImmutable,
   StringState,
 } from './lib';
