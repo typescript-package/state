@@ -1,6 +1,6 @@
-import { Selectable } from '../lib/selectable/selectable.abstract';
+import { SelectablePrivate } from '../lib/selectable/selectable-private.abstract';
 
-export class Checkbox extends Selectable {}
+export class Checkbox extends SelectablePrivate {}
 
 let checkbox = new Checkbox(true);
 
