@@ -29,6 +29,15 @@ export {
   ObjectState
 } from './object';
 
+// Selectable.
+export {
+  Selectable,
+  SelectableGroup,
+  SelectablePrivate,
+  SelectableWeakMap,
+} from './selectable';
+
+// Main.
 export { HistoryState } from './history-state.class';
 export { ImmutableState } from './immutable-state.abstract';
 export { NullState } from './null-state.abstract';
