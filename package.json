@@ -2,7 +2,7 @@
   "name": "@typescript-package/state",
   "version": "2.0.0",
   "author": "wwwdev.io <dev@wwwdev.io>",
-  "description": "State management for TypeScript.",
+  "description": "Simple state management for different types in TypeScript.",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
