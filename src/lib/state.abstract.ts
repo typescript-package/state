@@ -2,7 +2,9 @@
 import { ImmutableState } from "./immutable-state.abstract";
 /**
  * @description Common `abstract class` for setting the state of the generic type variable `Type`.
- * @export
+ * 1. **Memory Efficiency**: Uses weak references to allow for garbage collection of state when the object is no longer in use.
+ * 2. **Enhanced Encapsulation**: State is stored separately from the object, ensuring it is only accessible through the provided methods.
+ * 3. **Flexible State Management**: Enables dynamic and isolated state handling, allowing for better extensibility and control over state across instances. * @export
  * @abstract
  * @class State
  * @template Type
