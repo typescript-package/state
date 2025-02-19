@@ -49,6 +49,7 @@ Simple state management for different types in TypeScript.
     - [`NullState`](#nullstate)
     - [`NumberState`](#numberstate)
     - `State`
+    - `StringState`
 - [Immutability](#immutability)
   - [Sealed](#sealed)
   - [Frozen](#frozen)
@@ -104,7 +105,8 @@ import {
   ImmutableState,
   NullState,
   NumberState,
-  State
+  State,
+  StringState,
 } from '@typescript-package/state';
 ```
 
