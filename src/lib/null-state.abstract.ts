@@ -5,7 +5,6 @@ import { State } from "./state.abstract";
  * @export
  * @abstract
  * @class NullState
- * @typedef {NullState}
  * @extends {State<null | undefined>}
  */
 export abstract class NullState extends State<null | undefined> {

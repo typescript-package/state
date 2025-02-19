@@ -5,7 +5,6 @@ import { NamedArrayState } from "./named-array-state.abstract";
  * @export
  * @abstract
  * @class NamedBooleanArrayState
- * @typedef {NamedBooleanArrayState}
  * @template {string} Names
  * @extends {NamedArrayState<Names, boolean>}
  */
