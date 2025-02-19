@@ -49,7 +49,7 @@ Simple state management for different types in TypeScript.
     - [`NumberState`](#numberstate)
     - `State`
     - `StateHistory`
-    - `StringState`
+    - [`StringState`](#stringstate)
 - [Immutability](#immutability)
   - [Sealed](#sealed)
   - [Frozen](#frozen)
@@ -447,6 +447,46 @@ numberedState.increment(5);
 
 // Reset state to 0.
 numberedState.reset();
+```
+
+### `StringState`
+
+```typescript
+import { StringState } from '@typescript-package/state';
+
+// Extend the `StringState` to create a custom class
+class MyStringState<Type extends string = string> extends StringState<Type> {
+  constructor(initialState: Type) {
+    super(initialState);
+  }
+
+  public override set(state: Type) {
+    super.set(state);
+    return this;
+  }
+}
+
+// Instantiate your custom StringState class
+const myState = new MyStringState<string>("Hello World");
+
+// Log the current state
+console.log(myState.state);  // Output: Hello World
+
+// Change the state and store the history
+myState.set("Goodbye World");
+console.log(myState.state);  // Output: Goodbye World
+
+// Undo the change to revert to the previous state
+myState.undo();
+console.log(myState.state);  // Output: Hello World
+
+// Redo the change to restore the state
+myState.redo();
+console.log(myState.state);  // Output: Goodbye World
+
+// Set a new state and see the history update
+myState.set("New State");
+console.log(myState.state);  // Output: New State
 ```
 
 ## Immutability
