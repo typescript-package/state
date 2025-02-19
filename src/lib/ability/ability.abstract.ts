@@ -8,12 +8,22 @@ import { Boolean as Disabled, Boolean as Enabled } from "../boolean";
  */
 export abstract class Ability {
   /**
+   * @description
+   * @public
+   * @readonly
+   * @type {string}
+   */
+  public get [Symbol.toStringTag](): string {
+    return 'Ability';
+  }
+
+  /**
    * @description Default state for the `Disabled` instance.
    * @public
    * @static
    * @type {boolean}
    */
-  public static disabled = false;
+  public static disabled?: boolean;
 
   /**
    * @description Default state for the `Enabled` instance.
@@ -21,7 +31,7 @@ export abstract class Ability {
    * @static
    * @type {boolean}
    */
-  public static enabled = true;
+  public static enabled?: boolean;
 
   /**
    * @description Privately stored disabled state.
