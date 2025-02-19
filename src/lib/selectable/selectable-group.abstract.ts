@@ -1,16 +1,16 @@
 // Abstract.
 import { Ability } from "../ability/ability.abstract";
 // Class.
-import { Selectable } from "./selectable.abstract";
+import { SelectablePrivate } from "./selectable-private.abstract";
 /**
  * @description
  * @export
  * @abstract
  * @class SelectableGroup
- * @template {Selectable} T
+ * @template {SelectablePrivate} T
  * @extends {Ability}
  */
-export abstract class SelectableGroup<T extends Selectable> extends Ability {
+export abstract class SelectableGroup<T extends SelectablePrivate> extends Ability {
 
   /**
    * @description
