@@ -6,7 +6,7 @@ let checkbox = new Checkbox(true);
 
 describe(`Selectable`, () => {
   beforeEach(() => {
-    checkbox = new Checkbox(true);
+    checkbox = new Checkbox(undefined, true);
   });
 
   it(`enable()`, () => {
@@ -23,7 +23,7 @@ describe(`Selectable`, () => {
   });
 
   it(`isSelected()`, () => {
-    expect(checkbox.isSelected()).toBeTrue();
+    expect(checkbox.isSelected()).toBeFalse();
   });
 
   it(`deselect)`, () => {
@@ -39,10 +39,10 @@ describe(`Selectable`, () => {
   });
 
   it(`toggle()`, () => {
-    expect(checkbox.isSelected()).toBeTrue();
-    checkbox.toggle();
     expect(checkbox.isSelected()).toBeFalse();
     checkbox.toggle();
     expect(checkbox.isSelected()).toBeTrue();
+    checkbox.toggle();
+    expect(checkbox.isSelected()).toBeFalse();
   });
 });
