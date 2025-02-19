@@ -1,52 +1,65 @@
 
 <a href="https://www.typescriptlang.org/">
   <img
-    src="https://raw.githubusercontent.com/typescript-package/core/refs/heads/main/ts-package-barcode-logo-512.png"
-    width="20%"
+    src="https://avatars.githubusercontent.com/u/189666396?s=150&u=9d55b1eb4ce258974ead76bf07ccf49ef0eb0ea7&v=4"
     title="@typescript-package/state"
   />
 </a>
 
 ## typescript-package/state
 
-Simple state management for different types in TypeScript.
-
 <!-- npm badge -->
 [![npm version][typescript-package-npm-badge-svg]][typescript-package-npm-badge]
 [![GitHub issues][typescript-package-badge-issues]][typescript-package-issues]
 [![GitHub license][typescript-package-badge-license]][typescript-package-license]
 
+Simple state management for different types in TypeScript.
+
 <br>
 
 ## Table of contents
 
-* [Installation](#installation)
-* [Api](#api)
-  * [`Ability`](#ability)
-  * [`ArrayState`](#arraystate)
-  * [`BooleanArrayState`](#booleanarraystate)
-  * [`NamedArrayState`](#namedarraystate)
-  * `NamedBooleanArrayState`
-  * `Boolean`
-  * [`BooleanState`](#booleanstate)
-  * `Enum`
-  * [`EnumState`](#enumstate)
-  * [`BooleanActionObjectState`](#booleanactionobjectstate)
-  * `BooleanObjectState`
-  * `NamedObjectState`
-  * `ObjectState`
-  * `ImmutableState`
-  * [`NullState`](#nullstate)
-  * [`NumberState`](#numberstate)
-  * `State`
-* [Immutability](#immutability)
-  * [Sealed](#sealed)
-  * [Frozen](#frozen)
-  * [Locked](#locked)
-* [Git](#git)
-  * [Commit](#commit)
-  * [Versioning](#versioning)
-* [License](#license)
+- [Installation](#installation)
+- [Api](#api)
+  - [`Ability`](#ability)
+  - **Array**
+    - [`ArrayState`](#arraystate)
+    - [`BooleanArrayState`](#booleanarraystate)
+    - [`NamedArrayState`](#namedarraystate)
+    - `NamedBooleanArrayState`
+  - **Boolean**
+    - `Boolean`
+    - [`BooleanState`](#booleanstate)
+  - **Enum**
+    - `Enum`
+    - [`EnumState`](#enumstate)
+  - **Object**
+    - [`BooleanActionObjectState`](#booleanactionobjectstate)
+    - `BooleanObjectState`
+    - `NamedObjectState`
+    - `ObjectState`
+  - **Selectable**
+    - `Selectable`
+    - `SelectableGroup`
+    - `SelectablePrivate`
+    - `SelectableWeakMap`
+  - **Main**
+    - `HistoryState`
+    - `ImmutableState`
+    - [`NullState`](#nullstate)
+    - [`NumberState`](#numberstate)
+    - `State`
+- [Immutability](#immutability)
+  - [Sealed](#sealed)
+  - [Frozen](#frozen)
+  - [Locked](#locked)
+- [Contributing](#contributing)
+- [Support](#support)
+- [Code of Conduct](#code-of-conduct)
+- [Git](#git)
+  - [Commit](#commit)
+  - [Versioning](#versioning)
+- [License](#license)
 
 ## Installation
 
@@ -80,9 +93,17 @@ import {
   NamedObjectState,
   ObjectState,
 
+  // Selectable.
+  Selectable,
+  SelectableGroup,
+  SelectablePrivate,
+  SelectableWeakMap,
+
+  // Main.
+  HistoryState,
+  ImmutableState,
   NullState,
   NumberState,
-  ImmutableState,
   State
 } from '@typescript-package/state';
 ```
@@ -439,6 +460,25 @@ Provides structural and shallow immutability. Stricter than seal.
 ### Locked
 
 It's not native JavaScript state. Combines the features of `freeze` but extends immutability to nested structures(deep immutability).
+
+## Contributing
+
+Your contributions are valued! If you'd like to contribute, please feel free to submit a pull request. Help is always appreciated.
+
+## Support
+
+If you find this package useful and would like to support its and general development, you can contribute through one of the following payment methods. Your support helps maintain the packages and continue adding new.
+
+Support via:
+
+- [Stripe](https://donate.stripe.com/dR614hfDZcJE3wAcMM)
+- [Revolut](https://checkout.revolut.com/pay/048b10a3-0e10-42c8-a917-e3e9cb4c8e29)
+
+Thanks for your support!
+
+## Code of Conduct
+
+By participating in this project, you agree to follow **[Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)**.
 
 ## GIT
 
