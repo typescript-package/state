@@ -1,20 +1,21 @@
 // Abstract,
-import { State } from "./state.abstract";
+import { StateHistory } from "./state-history.abstract";
 /**
  * @description
  * @export
  * @abstract
  * @class StringState
- * @extends {State<string>}
+ * @template {string} [Type=string] 
+ * @extends {StateHistory<Type>}
  */
-export abstract class StringState extends State<string> {
+export abstract class StringState<Type extends string = string> extends StateHistory<Type> {
   /**
    * @inheritdoc
    * @protected
-   * @param {string} state
-   * @returns {this}
+   * @param {Type} state The state of `Type` constrained by the `string`.
+   * @returns {this} 
    */
-  protected override set(state: string): this {
+  protected override set(state: Type): this {
     typeof state === 'string' && super.set(state);
     return this;
   }
