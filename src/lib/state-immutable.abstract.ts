@@ -2,10 +2,10 @@
  * @description Manages the immutability states of `this` current instance.
  * @export
  * @abstract
- * @class ImmutableState
- * @typedef {ImmutableState}
+ * @class StateImmutable
+ * @typedef {StateImmutable}
  */
-export abstract class ImmutableState {
+export abstract class StateImmutable {
   /**
    * @description Privately stored locked state as 'locked' if locked, otherwise `undefined`.
    * @type {?'locked'}
