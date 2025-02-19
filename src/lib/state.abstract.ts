@@ -10,21 +10,22 @@ import { ImmutableState } from "./immutable-state.abstract";
  */
 export abstract class State<Type> extends ImmutableState {
   /**
+   * @description Privately stored state of `Type`.
+   * @static
+   * @readonly
+   * @type {WeakMap}
+   */
+  static readonly #state = new WeakMap<State<any>, any>();
+
+  /**
    * @description Returns the current state of `Type`.
    * @public
    * @readonly
    * @type {Type}
    */
   public get state(): Readonly<Type> {
-    return this.#state;
+    return State.#state.get(this);
   }
-
-  /**
-   * @description Privately stored state of `Type`.
-   * @private
-   * @type {Type}
-   */
-  #state!: Type;
 
   /**
    * Creates an instance of child class.
@@ -33,7 +34,7 @@ export abstract class State<Type> extends ImmutableState {
    */
   constructor(initialState: Type) {
     super();
-    this.#state = initialState;
+    State.#state.set(this, initialState)
   }
   
   /**
@@ -43,8 +44,16 @@ export abstract class State<Type> extends ImmutableState {
    * @returns {this}
    */
   public on(stateCallback: (state: Type) => void): this {
-    stateCallback(this.#state);
+    stateCallback(State.#state.get(this));
     return this;
+  }
+
+  /**
+   * @description Removes the state from `WeakMap`.
+   * @public
+   */
+  public destroy() {
+    State.#state.delete(this);
   }
 
   /**
@@ -57,7 +66,7 @@ export abstract class State<Type> extends ImmutableState {
     if (super.isLocked()) {
       throw new Error('Cannot set when object is locked.');
     }
-    this.#state = state;
+    State.#state.set(this, state);
     return this;
   }
 }
