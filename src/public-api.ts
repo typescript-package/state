@@ -35,5 +35,6 @@ export {
   ImmutableState,
   NullState,
   NumberState,
-  State
+  State,
+  StringState,
 } from './lib';
