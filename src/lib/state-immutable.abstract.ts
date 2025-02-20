@@ -3,9 +3,22 @@
  * @export
  * @abstract
  * @class StateImmutable
- * @typedef {StateImmutable}
  */
 export abstract class StateImmutable {
+  /**
+   * @description
+   * @template Type 
+   * @param {Type} object 
+   * @returns {Readonly<Type>} 
+   */
+  public static deepFreeze<Type>(object: Type): Readonly<Type> {
+    if (object && typeof object === "object" && !Object.isFrozen(object)) {
+      Object.getOwnPropertyNames(object).forEach(prop => StateImmutable.deepFreeze((object as any)[prop]));
+      Object.freeze(object);
+    }
+    return object;
+  }
+
   /**
    * @description Privately stored locked state as 'locked' if locked, otherwise `undefined`.
    * @type {?'locked'}
@@ -55,22 +68,21 @@ export abstract class StateImmutable {
   /**
    * @description Checks whether `this` current instance is sealed.
    * @public
-   * @returns {boolean}
+   * @returns {boolean} 
    */
   public isSealed(): boolean {
     return Object.isSealed(this);
   }
 
   /**
-   * @description Freezes and locks the object - sets the lock state to 'locked'. The state
-   * prevents changes in the private `#` variables.
+   * @description Freezes and locks the object, ensuring deep immutability.
+   * This is not native JavaScript immutability; it combines the features of `Object.freeze`, 
+   * but extends immutability to nested structures (deep immutability).
    * @public
-   * @returns {this}
+   * @returns {this} 
    */
   public lock(): this {
-    if (!this.isFrozen()) {
-      this.freeze();
-    }
+    StateImmutable.deepFreeze(this);
     this.#locked = 'locked';
     return this;
   }
