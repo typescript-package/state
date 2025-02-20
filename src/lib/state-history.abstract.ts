@@ -1,25 +1,49 @@
 // Class.
-import { State } from "./state.abstract";
+import { StateStorage } from "./state-storage.abstract";
+// Type.
+import { HistoryStorage } from "../type/history-storage.type";
 /**
  * @description A state with the **undo/redo** history functionality, allowing the state to be reverted to previous states, and
  * restored from **redo** history.
  * @export
  * @abstract
- * @class HistoryState
+ * @class StateHistory
  * @template Type 
- * @extends {State<Type>}
+ * @extends {StateStorage<Type>}
  */
-export abstract class StateHistory<Type> extends State<Type> {
+export abstract class StateHistory<Type> extends StateStorage<Type> {
+  /**
+   * @description The static method returns read-only undo/redo history of the specified `instance`.
+   * @public
+   * @static
+   * @template [Type=any] 
+   * @param {StateHistory<Type>} instance 
+   * @returns {(Readonly<HistoryStorage> | undefined)} 
+   */
+  public static getHistory<Type = any>(instance: StateHistory<Type>): Readonly<HistoryStorage> | undefined {
+    return Object.freeze(this.#history.get(instance));
+  }
+
   /**
    * @description A private storage for history of `WeakMap` type.
    * @static
    * @readonly
    * @type {WeakMap}
    */
-  static readonly #history = new WeakMap<any, { undo: any[], redo: any[] }>();
+  static readonly #history = new WeakMap<any, HistoryStorage>();
 
   /**
-   * Creates an instance of `HistoryState`.
+   * @description Returns the `string` tag representation of the `StateHistory` class when used in `Object.prototype.toString.call(instance)`.
+   * @public
+   * @readonly
+   * @type {string}
+   */
+  public override get [Symbol.toStringTag](): string {
+    return StateHistory.name;
+  }
+
+  /**
+   * Creates an instance of `StateHistory`.
    * @constructor
    * @param {Type} initialState 
    */
