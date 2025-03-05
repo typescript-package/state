@@ -8,13 +8,13 @@ import { Boolean as Disabled, Boolean as Enabled } from "../boolean";
  */
 export abstract class Ability {
   /**
-   * @description
+   * @description Returns the `string` tag representation of the `Ability` class when used in `Object.prototype.toString.call(instance)`.
    * @public
    * @readonly
    * @type {string}
    */
   public get [Symbol.toStringTag](): string {
-    return 'Ability';
+    return Ability.name;
   }
 
   /**
