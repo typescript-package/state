@@ -2,9 +2,9 @@
  * @description Manages the immutability states of `this` current instance.
  * @export
  * @abstract
- * @class StateImmutable
+ * @class Immutability
  */
-export abstract class StateImmutable {
+export abstract class Immutability {
   /**
    * @description
    * @template Type 
@@ -13,7 +13,7 @@ export abstract class StateImmutable {
    */
   public static deepFreeze<Type>(object: Type): Readonly<Type> {
     if (object && typeof object === "object" && !Object.isFrozen(object)) {
-      Object.getOwnPropertyNames(object).forEach(prop => StateImmutable.deepFreeze((object as any)[prop]));
+      Object.getOwnPropertyNames(object).forEach(prop => Immutability.deepFreeze((object as any)[prop]));
       Object.freeze(object);
     }
     return object;
@@ -82,7 +82,7 @@ export abstract class StateImmutable {
    * @returns {this} 
    */
   public lock(): this {
-    StateImmutable.deepFreeze(this);
+    Immutability.deepFreeze(this);
     this.#locked = 'locked';
     return this;
   }
