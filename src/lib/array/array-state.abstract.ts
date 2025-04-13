@@ -70,7 +70,7 @@ export abstract class ArrayState<Type> extends State<ReadonlyArray<Type>> {
    * @public
    * @returns {this}
    */
-  public clear(): this {
+  public override clear(): this {
     super.set([]);
     return this;
   }
