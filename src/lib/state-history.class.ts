@@ -3,7 +3,7 @@ import { Data, DataCore } from "@typescript-package/data";
 // History.
 import { HistoryBase } from "@typescript-package/history";
 /**
- * @description
+ * @description The class to handle the history of the state.
  * @export
  * @class StateHistory
  * @template Value 
@@ -16,6 +16,14 @@ export class StateHistory<
   Size extends number = number,
   DataType extends DataCore<Value[]> = Data<Value[]>
 > extends HistoryBase<Value, Size , DataType> {
+  /**
+   * @description The default size of the history.
+   * @public
+   * @static
+   * @type {number}
+   */
+  public static track = 0;
+
   /**
    * @description Returns the `string` tag representation of the `StateHistory` class when used in `Object.prototype.toString.call(instance)`.
    * @public
