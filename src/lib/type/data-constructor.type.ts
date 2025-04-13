@@ -1,0 +1,1 @@
+export type DataConstructor<Value, DataType> = new (state: Value) => DataType;
