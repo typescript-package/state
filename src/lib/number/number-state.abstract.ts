@@ -1,14 +1,14 @@
 // Abstract.
-import { StateHistory } from "./state-history.abstract";
+import { State } from '../state.abstract';
 /**
  * @description Handles and manages the `number` type state.
  * @export
  * @abstract
  * @class NumberState
  * @template {number} [Type=number] 
- * @extends {StateHistory<Type>}
+ * @extends {State<Type>}
  */
-export abstract class NumberState<Type extends number = number> extends StateHistory<Type> {
+export abstract class NumberState<Type extends number = number> extends State<Type> {
   /**
    * @description Returns the increment value set initially.
    * @public
