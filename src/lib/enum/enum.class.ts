@@ -4,7 +4,6 @@ import { EnumState } from "./enum-state.abstract";
  * @description
  * @export
  * @class Enum
- * @typedef {Enum}
  * @template {object} EnumObject
  * @template {EnumObject[keyof EnumObject]} Type
  * @extends {EnumState<EnumObject, Type>}
