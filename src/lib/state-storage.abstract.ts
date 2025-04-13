@@ -1,15 +1,17 @@
 // data.
 import { Data, DataCore, Immutability } from "@typescript-package/data";
-// Abstract.
-import { StateHistory } from "./state-history.class";
+// Type.
+import { DataConstructor } from "./type";
 /**
  * @description StateStorage is a generic `abstract class` for setting the state of the generic type variable `Value`.
  * It is used to create a state container that can be locked and modified.
  * It is a base class for creating state containers for different types of data.
  * 
+ * Using `WeakData`:
  * 1. **Memory Efficiency**: Uses weak references to allow for garbage collection of state when the object is no longer in use.
  * 2. **Enhanced Encapsulation**: State is stored separately from the object, ensuring it is only accessible through the provided methods.
- * 3. **Flexible State Management**: Enables dynamic and isolated state handling, allowing for better extensibility and control over state across instances. * @export
+ * 3. **Flexible State Management**: Enables dynamic and isolated state handling, allowing for better extensibility and control over state across instances. *
+ * 
  * @export
  * @abstract
  * @class StateStorage
@@ -22,34 +24,13 @@ export abstract class StateStorage<
   DataType extends DataCore<Value> = Data<Value>
 > extends DataCore<Value> {
   /**
-   * @description The `Data` object that is used to store the state.
+   * @description The `DataCore` related object that is used to store the state.
    * @private
    * @type {DataType}
    */
   public get data(): DataType {
     return this.#data;
   }
-
-  /**
-   * @description The `StateHistory` object that is used to store the history of the state.
-   * @public
-   * @type {StateHistory<Value, number>}
-   */
-  public get history() {
-    return this.#history;
-  }
-
-  /**
-   * @description The `StateStorage` object that is used to store the state.
-   * @type {DataType}
-   */
-  #data: DataType;
-
-  /**
-   * @description The `StateHistory` object that is used to store the history of the state.
-   * @type {?StateHistory<Value, number>}
-   */
-  #history?: StateHistory<Value, number>;
 
   /**
    * @description Returns the `string` tag representation of the `StateContainer` class when used in `Object.prototype.toString.call(instance)`.
@@ -73,33 +54,34 @@ export abstract class StateStorage<
   }
 
   /**
+   * @description The object that is used to store the state.
+   * @type {DataType}
+   */
+  #data: DataType;
+
+  /**
    * Creates an instance of `StateStorage` child class.
    * @constructor
    * @param {Value} state 
-   * @param {?(boolean | number)} [track] 
-   * @param {new (state: Value) => DataType} [data=Data as unknown as (new (state: Value) => DataType)] 
+   * @param {DataConstructor<Value, DataType>} [data=Data as unknown as DataConstructor<Value, DataType>] 
    */
   constructor(
     state: Value,
-    track?: boolean | number,
-    data: new (state: Value) => DataType = Data as unknown as (new (state: Value) => DataType)
+    data: DataConstructor<Value, DataType> = Data as unknown as DataConstructor<Value, DataType>,
   ) {
     super();
-    track === true && (this.#history = new StateHistory({value: state, size: typeof track === 'number' ? track : 10}));
     this.#data = new data(state);
-    this.#history?.onRedo((value: Value) => this.#data.set(value));
-    this.#history?.onUndo((value: Value) => this.#data.set(value));
   }
 
   /**
    * @inheritdoc
    * @public
-   * @returns {this} 
+   * @returns {this} The current instance of `StateStorage` child class.
    */
   public override lock() {
     Immutability.deepFreeze(this.#data.value);
-    this.set = () => { throw new Error('Cannot modify the state data in container after lock.') };
-    this.destroy = () => { throw new Error('Cannot delete from the state data in container after lock.') };
+    this.set = () => { throw new Error('Cannot modify the state data in storage after lock.') };
+    this.destroy = () => { throw new Error('Cannot delete from the state data in storage after lock.') };
     this.lock();
     return this;
   }
@@ -108,7 +90,7 @@ export abstract class StateStorage<
    * @description Performs the `callback` function on `state`.
    * @public
    * @param {(state: Value) => void} stateCallback The callback function with a `state` to perform.
-   * @returns {this}
+   * @returns {this} The current instance of `StateStorage` child class.
    */
   public on(stateCallback: (state: Value) => void): this {
     stateCallback(this.#data.value);
@@ -119,12 +101,12 @@ export abstract class StateStorage<
    * @description Sets the state if it is not locked and is allowed.
    * @public
    * @param {Value} state The state of `Type` to set.
-   * @returns {this}
+   * @returns {this} The current instance of `StateStorage` child class.
+   * @throws {Error} Throws an error if the state is locked.
    */
   public set(state: Value): this {
     if (this.isLocked()) throw new Error('Cannot set when state is locked.');
-    this.#history?.set(state);
-    this.#data.set(state)
+    this.#data.set(state);
     return this;
   }
 }
