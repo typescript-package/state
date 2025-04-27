@@ -3,7 +3,7 @@ import { Data, DataCore, Immutability } from "@typescript-package/data";
 // Type.
 import { DataConstructor } from "./type";
 /**
- * @description StateStorage is a generic `abstract class` for setting the state of the generic type variable `Value`.
+ * @description StateStorage is a generic `abstract class` for setting the state of the generic type variable `Value` with customizable data storage.
  * It is used to create a state container that can be locked and modified.
  * It is a base class for creating state containers for different types of data.
  * 
@@ -16,16 +16,17 @@ import { DataConstructor } from "./type";
  * @abstract
  * @class StateStorage
  * @template Value 
- * @template {DataCore<Value>} [DataType=Data<Value>] 
- * @extends {DataCore<Value>}
+ * @template {DataCore<Readonly<Value>>} [DataType=Data<Readonly<Value>>] 
+ * @extends {DataCore<Readonly<Value>>}
  */
 export abstract class StateStorage<
   Value,
-  DataType extends DataCore<Value> = Data<Value>
-> extends DataCore<Value> {
+  DataType extends DataCore<Readonly<Value>> = Data<Readonly<Value>>
+> extends DataCore<Readonly<Value>> {
   /**
    * @description The `DataCore` related object that is used to store the state.
-   * @private
+   * @public
+   * @readonly
    * @type {DataType}
    */
   public get data(): DataType {
@@ -33,7 +34,7 @@ export abstract class StateStorage<
   }
 
   /**
-   * @description Returns the `string` tag representation of the `StateContainer` class when used in `Object.prototype.toString.call(instance)`.
+   * @description Returns the `string` tag representation of the `StateStorage` class when used in `Object.prototype.toString.call(instance)`.
    * @public
    * @readonly
    * @type {string}
@@ -46,7 +47,7 @@ export abstract class StateStorage<
    * @description Returns the current `Readonly` state of `Value`.
    * @public
    * @readonly
-   * @type {Value}
+   * @type {Readonly<Value>}
    */
   public get state(): Readonly<Value> {
     const state = this.#data.value;
@@ -62,15 +63,15 @@ export abstract class StateStorage<
   /**
    * Creates an instance of `StateStorage` child class.
    * @constructor
-   * @param {Value} state 
-   * @param {DataConstructor<Value, DataType>} [data=Data as unknown as DataConstructor<Value, DataType>] 
+   * @param {Value} value The initial state value of `Value`.
+   * @param {DataConstructor<Value, DataType>} [data=Data as unknown as DataConstructor<Value, DataType>] Custom data holder for state.
    */
   constructor(
-    state: Value,
+    value: Value,
     data: DataConstructor<Value, DataType> = Data as unknown as DataConstructor<Value, DataType>,
   ) {
     super();
-    this.#data = new data(state);
+    this.#data = new data(value);
   }
 
   /**
@@ -89,24 +90,24 @@ export abstract class StateStorage<
   /**
    * @description Performs the `callback` function on `state`.
    * @public
-   * @param {(state: Value) => void} stateCallback The callback function with a `state` to perform.
+   * @param {(state: Readonly<Value>) => void} callbackFn The callback function with a `state` to perform.
    * @returns {this} The current instance of `StateStorage` child class.
    */
-  public on(stateCallback: (state: Value) => void): this {
-    stateCallback(this.#data.value);
+  public on(callbackFn: (state: Readonly<Value>) => void): this {
+    callbackFn(this.#data.value);
     return this;
   }
 
   /**
    * @description Sets the state if it is not locked and is allowed.
    * @public
-   * @param {Value} state The state of `Type` to set.
+   * @param {Value} value The value of `Value` to set a new state.
    * @returns {this} The current instance of `StateStorage` child class.
    * @throws {Error} Throws an error if the state is locked.
    */
-  public set(state: Value): this {
+  public set(value: Value): this {
     if (this.isLocked()) throw new Error('Cannot set when state is locked.');
-    this.#data.set(state);
+    this.#data.set(value);
     return this;
   }
 }
