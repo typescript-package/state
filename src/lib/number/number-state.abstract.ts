@@ -1,14 +1,40 @@
 // Abstract.
+import { Data, DataCore } from '@typescript-package/data';
 import { State } from '../state.abstract';
+// Type.
+import { DataConstructors } from '../type';
 /**
- * @description Handles and manages the `number` type state.
+ * @description Handles and manages the state of generic type variable `Value` constrained by the `string` with customizable state and its history data holder.
  * @export
  * @abstract
  * @class NumberState
- * @template {number} [Type=number] 
- * @extends {State<Type>}
+ * @template {number} [Value=number] 
+ * @template {DataCore<Value>} [DataType=Data<Value>] 
+ * @template {DataCore<Value[]>} [HistoryData=Data<Value[]>] 
+ * @extends {State<Value, DataType, HistoryData>}
  */
-export abstract class NumberState<Type extends number = number> extends State<Type> {
+export abstract class NumberState<
+  Value extends number = number,
+  DataType extends DataCore<Value> = Data<Value>,
+  HistoryData extends DataCore<Value[]> = Data<Value[]>
+> extends State<Value, DataType, HistoryData> {
+  /**
+   * @description The default incremental value used for each increment operation in an instance.
+   * @public
+   * @static
+   * @type {number}
+   */
+  public static incrementValue = 1;
+
+  /**
+   * @description The default undo history size for state changes.
+   * @public
+   * @static
+   * @type {number}
+   */
+  public static track = 0;
+
+  //#region get
   /**
    * @description Returns the increment value set initially.
    * @public
@@ -20,17 +46,17 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
   }
 
   /**
-   * @description Returns the current `Type` state.
+   * @description Returns the current state of `Value`.
    * @public
    * @readonly
-   * @type {Type}
+   * @type {Value}
    */
-  public override get state(): Type {
+  public override get state(): Value {
     return super.state;
   }
 
   /**
-   * @description Returns the current reset state of `number` type.
+   * @description Returns the current reset value of `number` type.
    * @protected
    * @readonly
    * @type {number}
@@ -38,9 +64,11 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
   protected get resetValue(): number {
     return this.#resetValue;
   }
+  //#endregion
 
+  //#region #
   /**
-   * @description Incremental size of the state.
+   * @description Incremental value of the state.
    * @type {number}
    */
   #incrementValue;
@@ -50,24 +78,37 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
    * @type {number}
    */
   #resetValue;
+  //#endregion
 
   /**
-   * Creates an instance of `NumberState`.
+   * Creates an instance of `NumberState` child class.
    * @constructor
-   * @param {Type} [state=0 as Type] Sets the initial, and reset state value(if not set).
-   * @param {number} [increment=1] Sets incremental size.
-   * @param {?number} [resetValue] Sets the reset state value. Defaults, retrieved from the `state`.
+   * @param {Value} [value=0 as Value] Sets the initial, and reset state value(if not set).
+   * @param {{
+   *       incrementValue?: number,
+   *       resetValue?: number,
+   *       track?: number
+   *     }} [param0={}] 
+   * @param {number} param0.incrementValue Sets the incremental value.
+   * @param {number} param0.resetValue Sets the reset state value. Defaults, retrieved from the `value`.
+   * @param {number} param0.track Undo history tracking size.
+   * @param {?DataConstructors<Value, [DataType, HistoryData]>} [data] Custom data holder for state and its history.
    */
   constructor(
-    state: Type = 0 as Type,
-    increment = 1,
-    resetValue?: number,
+    value: Value = 0 as Value,
+    {incrementValue, resetValue, track}: {
+      incrementValue?: number,
+      resetValue?: number,
+      track?: number
+    } = {},
+    data?: DataConstructors<Value, [DataType, HistoryData]>
   ) {
-    super(state);
-    this.#incrementValue = typeof increment === 'number' ? increment : 1;
-    this.#resetValue = typeof resetValue === 'number' ? resetValue as Type : super.state;
+    super(value, track ?? NumberState.track, data);
+    this.#incrementValue = typeof incrementValue === 'number' ? incrementValue : NumberState.incrementValue;
+    this.#resetValue = typeof resetValue === 'number' ? resetValue as Value : super.state;
   }
   
+  //#region public method
   /**
    * @description Decrements the state of `number` type of given `amount`.
    * @public
@@ -78,8 +119,7 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
     if (this.isLocked()) {
       throw new Error('Cannot modify in the locked state.');
     }
-    const state = super.state as unknown as number;
-    this.set((state - amount) as Type);
+    this.set((super.state as unknown as number - amount) as Value);
     return this;
   }
 
@@ -90,19 +130,18 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
    * @returns {this}
    */
   public increment(amount: number = this.#incrementValue): this {
-    const state = super.state as unknown as number;
-    this.set((state + amount) as Type);
+    this.set((super.state as unknown as number + amount) as Value);
     return this;
   }
 
   /**
-   * @description Checks whether current state is equal to the `state`.
+   * @description Checks whether current state is equal to the `value`.
    * @public
-   * @param {Type} state
+   * @param {Value} value
    * @returns {boolean}
    */
-  public is(state: Type) {
-    return typeof state === 'number' && super.state === state;
+  public is(value: Value) {
+    return typeof value === 'number' && super.state === value;
   }
 
   /**
@@ -113,37 +152,39 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
    * @returns {boolean}
    */
   public isBetween(min: number, max: number) {
-    const state = super.state as unknown as number;
+    const state = super.value as unknown as number;
     return typeof min === 'number' && state >= min && typeof max === 'number' && state <= max; 
   }
 
   /**
-   * @description Sets the state of `Type` type to the given `state`. 
+   * @description Sets the state with the provided `value` of `Value` type. 
    * @public
-   * @param {Type} state The `Type` type state to set.
+   * @param {Value} value The `Value` type state to set.
    * @returns {this}
    */
-  public override set(state: Type): this {
-    typeof state === 'number' && super.set(state);
+  public override set(value: Value): this {
+    typeof value === 'number' && super.set(value);
     return this;
   }
   
   /**
    * @description Sets the state between minimum and maximum.
    * @public
-   * @param {Type} state The state of `Type` type to set between `min` and `max`.
-   * @param {number} min The minimum value of the `state`.
-   * @param {number} max The maximum value of the `state`.
+   * @param {Value} value The state value of `Value` type to set between `min` and `max`.
+   * @param {number} min The minimum value of the `value`.
+   * @param {number} max The maximum value of the `value`.
    * @returns {this}
    */
-  public setBetween(state: Type, min: number, max: number) {
-    typeof state === 'number'
-      && typeof min === 'number' && state >= min
-      && typeof max === 'number' && state <= max
-      && super.set(state);
+  public setBetween(value: Value, min: number, max: number) {
+    typeof value === 'number'
+      && typeof min === 'number' && value >= min
+      && typeof max === 'number' && value <= max
+      && super.set(value);
     return this;
   }
+  //#endregion 
 
+  //#region protected method
   /**
    * @description Resets the state of `number` type to the `resetValue`. Defaults, `state` or `resetValue`.
    * @protected
@@ -153,4 +194,5 @@ export abstract class NumberState<Type extends number = number> extends State<Ty
     super.set(this.#resetValue);
     return this;
   }
+  //#endregion
 }
