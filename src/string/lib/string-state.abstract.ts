@@ -1,6 +1,6 @@
 // Abstract,
 import { Data, DataCore } from "@typescript-package/data";
-import { State } from "../lib/state.abstract";
+import { State } from "../../lib";
 /**
  * @description The state of generic type variable `Value` constrained by the `string` with customizable state and its history data holder.
  * @export

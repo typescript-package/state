@@ -1,1 +1,1 @@
-export { StringState } from './string-state.abstract';
+export { StringState } from './lib';
