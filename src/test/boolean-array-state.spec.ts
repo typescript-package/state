@@ -2,11 +2,11 @@ import { BooleanArrayState } from "../lib/array";
 
 export class Options extends BooleanArrayState {}
 
-let options = new Options(true, true, true, false);
+let options = new Options([true, true, true, false]);
 
 describe(`BooleanArrayState`, () => {
   beforeEach(() => {
-    options = new Options(true, true, true, false);  
+    options = new Options([true, true, true, false]);  
   });
   it(`false()`, () => {
     expect(options.false(0, 1).state).toEqual([false, false, true, false]);
