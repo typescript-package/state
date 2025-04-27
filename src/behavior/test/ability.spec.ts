@@ -1,11 +1,10 @@
 import { Ability } from "../lib";
 
-
-export class Connection extends Ability {}
-
-let connection = new Connection();
-
 describe(`Ability`, () => {
+  class Connection extends Ability {}
+
+  let connection = new Connection();
+
   beforeEach(() => {
     connection = new Connection(true);
   });
