@@ -1,10 +1,10 @@
 // Abstract.
 import { Data, DataCore } from '@typescript-package/data';
-import { State } from '../state.abstract';
+import { State } from '../../lib/state.abstract';
 // Type.
-import { DataConstructors } from '../type';
+import { DataConstructors } from '../../lib/type';
 /**
- * @description Handles and manages the state of generic type variable `Value` constrained by the `string` with customizable state and its history data holder.
+ * @description Handles and manages the state of generic type variable `Value` constrained by the `number` with customizable state and its history data holder.
  * @export
  * @abstract
  * @class NumberState
