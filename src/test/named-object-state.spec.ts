@@ -1,4 +1,4 @@
-import { NamedObjectState as ANamedObjectState } from "../lib/object";
+import { NamedObjectState as ANamedObjectState } from "../object";
 
 export class NamedObjectState<
   Type = any,

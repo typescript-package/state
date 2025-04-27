@@ -1,4 +1,4 @@
-import { ObjectState as AbstractObjectState } from "../lib/object/object-state.abstract";
+import { ObjectState as AbstractObjectState } from "../object";
 
 export interface UserInterface {
   id: number,
