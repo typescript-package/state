@@ -1,14 +1,21 @@
 // Abstract,
+import { Data, DataCore } from "@typescript-package/data";
 import { State } from "../state.abstract";
 /**
- * @description 
+ * @description The state of generic type variable `Value` constrained by the `string` with customizable state and its history data holder.
  * @export
  * @abstract
  * @class StringState
- * @template {string} [Type=string] 
- * @extends {State<Type>}
+ * @template {string} [Value=string] 
+ * @template {DataCore<Readonly<Value>>} [DataType=Data<Readonly<Value>>] 
+ * @template {DataCore<Readonly<Value>[]>} [HistoryData=Data<Readonly<Value>[]>] 
+ * @extends {State<Value, DataType, HistoryData>}
  */
-export abstract class StringState<Type extends string = string> extends State<Type> {
+export abstract class StringState<
+  Value extends string = string,
+  DataType extends DataCore<Readonly<Value>> = Data<Readonly<Value>>,
+  HistoryData extends DataCore<Readonly<Value>[]> = Data<Readonly<Value>[]>,
+> extends State<Value, DataType, HistoryData> {
   /**
    * @description Returns the `string` tag representation of the `StringState` class when used in `Object.prototype.toString.call(instance)`.
    * @public
@@ -22,11 +29,11 @@ export abstract class StringState<Type extends string = string> extends State<Ty
   /**
    * @inheritdoc
    * @public
-   * @param {Type} state The state of `Type` constrained by the `string`.
+   * @param {Value} value The state of `Value` constrained by the `string`.
    * @returns {this} 
    */
-  public override set(state: Type): this {
-    typeof state === 'string' && super.set(state);
+  public override set(value: Value): this {
+    typeof value === 'string' && super.set(value);
     return this;
   }
 }
