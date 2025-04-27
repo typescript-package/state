@@ -1,4 +1,4 @@
-import { NullState } from "../lib/null-state.abstract";
+import { NullState } from "../null/null-state.abstract";
 
 export class Nullified extends NullState {}
 
