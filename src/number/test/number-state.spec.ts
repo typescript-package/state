@@ -1,4 +1,4 @@
-import { NumberState } from "../lib";
+import { NumberState } from "../../lib";
 
 export class NumberedState extends NumberState {
   public override reset() {
