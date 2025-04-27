@@ -1,1 +1,1 @@
-export type DataConstructor<Value, DataType> = new (state: Value) => DataType;
+export type DataConstructor<Value, DataType> = new (value: Readonly<Value>) => DataType;
