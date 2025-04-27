@@ -1,5 +1,5 @@
 // Abstract.
-import { State } from "../state.abstract";
+import { State } from "../lib/state.abstract";
 /**
  * @description Handles and manages the `null` type state.
  * @export
