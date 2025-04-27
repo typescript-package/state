@@ -8,14 +8,14 @@ import { HistoryBase } from "@typescript-package/history";
  * @class StateHistory
  * @template Value 
  * @template {number} [Size=number] 
- * @template {DataCore<Value[]>} [DataType=Data<Value[]>] 
- * @extends {HistoryBase<Value, Size, DataType>}
+ * @template {DataCore<Readonly<Value>[]>} [DataType=Data<Readonly<Value>[]>] 
+ * @extends {HistoryBase<Readonly<Value>, Size, DataType>}
  */
 export class StateHistory<
   Value,
   Size extends number = number,
-  DataType extends DataCore<Value[]> = Data<Value[]>
-> extends HistoryBase<Value, Size , DataType> {
+  DataType extends DataCore<Readonly<Value>[]> = Data<Readonly<Value>[]>
+> extends HistoryBase<Readonly<Value>, Size, DataType> {
   /**
    * @description The default size of the history.
    * @public
