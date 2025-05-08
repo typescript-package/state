@@ -1,46 +1,5 @@
-// Ability.
-export { Ability } from './ability';
-
-// Array state.
-export {
-  ArrayState,
-  BooleanArrayState,
-  NamedArrayState,
-  NamedBooleanArrayState
-} from './array';
-
-// Boolean state.
-export {
-  Boolean,
-  BooleanState
-} from './boolean';
-
-// Enum state.
-export {
-  Enum,
-  EnumState
-} from './enum';
-
-// Object state.
-export {
-  BooleanActionObjectState,
-  BooleanObjectState,
-  NamedObjectState,
-  ObjectState
-} from './object';
-
-// Selectable.
-export {
-  Selectable,
-  SelectableGroup,
-  SelectablePrivate,
-  SelectableWeakMap,
-} from './selectable';
-
-// Main.
-export { StateHistory } from './state-history.abstract';
-export { StateImmutable } from './state-immutable.abstract';
-export { NullState } from './null-state.abstract';
-export { NumberState } from './number-state.abstract';
+// Main State (Base class for all state management).
 export { State } from './state.abstract';
-export { StringState } from './string-state.abstract';
+export { StateBase } from './state-base.abstract';
+export { StateHistory } from './state-history.class';
+export { StateStorage } from './state-storage.abstract';
