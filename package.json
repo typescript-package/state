@@ -8,8 +8,10 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "devDependencies": {},
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@typescript-package/data": "^5.0.0",
+    "@typescript-package/history": "^2.0.0"
+  },
   "scripts": {
     "prepublishOnly": "npm run pkg && npm run clean",
     "pkg": "npm pkg delete dependencies",
@@ -24,9 +26,14 @@
   },
   "keywords": [
     "@typescript-package",
-    "@typescript-package/state"
+    "@typescript-package/state",
+    "State management for different types in TypeScript"
   ],
   "funding": [
+    {
+      "type": "stripe",
+      "url": "https://donate.stripe.com/dR614hfDZcJE3wAcMM"
+    },
     {
       "type": "individual",
       "url": "https://checkout.revolut.com/pay/048b10a3-0e10-42c8-a917-e3e9cb4c8e29"
