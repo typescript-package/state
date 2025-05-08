@@ -1,1 +1,0 @@
-export { NullState } from './null-state.abstract';

@@ -1,1 +1,0 @@
-export { StringState } from './lib';
