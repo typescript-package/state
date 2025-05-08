@@ -11,14 +11,14 @@ import { DataConstructor, DataConstructors } from './type';
  * @abstract
  * @class State
  * @template Value 
- * @template {DataCore<Readonly<Value>>} [DataType=Data<Readonly<Value>>] 
- * @template {DataCore<Readonly<Value>[]>} [HistoryData=Data<Readonly<Value>[]>] 
+ * @template {DataCore<Value>} [DataType=Data<Value>] 
+ * @template {DataCore<readonly Value[]>} [HistoryData=Data<readonly Value[]>] 
  * @extends {StateStorage<Value, DataType>}
  */
 export abstract class State<
   Value,
-  DataType extends DataCore<Readonly<Value>> = Data<Readonly<Value>>,
-  HistoryData extends DataCore<Readonly<Value>[]> = Data<Readonly<Value>[]>,
+  DataType extends DataCore<Value> = Data<Value>,
+  HistoryData extends DataCore<readonly Value[]> = Data<readonly Value[]>,
 > extends StateStorage<Value, DataType> {
   /**
    * @description Returns the `string` tag representation of the `State` class when used in `Object.prototype.toString.call(instance)`.
@@ -33,7 +33,7 @@ export abstract class State<
   /**
    * @description The `StateHistory` object that is used to store the history of the state.
    * @public
-   * @type {StateHistory<Readonly<Value>, number>}
+   * @type {StateHistory<Value, number>}
    */
   public get history() {
     return this.#history;
@@ -43,9 +43,9 @@ export abstract class State<
    * @description Returns the current `Readonly` state of `Value`.
    * @public
    * @readonly
-   * @type {Readonly<Value>}
+   * @type {Value}
    */
-  public get value() {
+  public get value(): Value {
     return this.state;
   }
 
