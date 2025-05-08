@@ -16,13 +16,13 @@ import { DataConstructor } from "./type";
  * @abstract
  * @class StateStorage
  * @template Value 
- * @template {DataCore<Readonly<Value>>} [DataType=Data<Readonly<Value>>] 
- * @extends {DataCore<Readonly<Value>>}
+ * @template {DataCore<Value>} [DataType=Data<Value>] 
+ * @extends {DataCore<Value>}
  */
 export abstract class StateStorage<
   Value,
-  DataType extends DataCore<Readonly<Value>> = Data<Readonly<Value>>
-> extends DataCore<Readonly<Value>> {
+  DataType extends DataCore<Value> = Data<Value>
+> extends DataCore<Value> {
   /**
    * @description The `DataCore` related object that is used to store the state.
    * @public
@@ -47,9 +47,9 @@ export abstract class StateStorage<
    * @description Returns the current `Readonly` state of `Value`.
    * @public
    * @readonly
-   * @type {Readonly<Value>}
+   * @type {Value}
    */
-  public get state(): Readonly<Value> {
+  public get state(): Value {
     const state = this.#data.value;
     return (typeof state !== 'object' || state === null || Array.isArray(state)) ? state : Object.freeze<Value>({...state});
   }
@@ -79,7 +79,7 @@ export abstract class StateStorage<
    * @public
    * @returns {this} The current instance of `StateStorage` child class.
    */
-  public override lock() {
+  public override lock(): this {
     Immutability.deepFreeze(this.#data.value);
     this.set = () => { throw new Error('Cannot modify the state data in storage after lock.') };
     this.destroy = () => { throw new Error('Cannot delete from the state data in storage after lock.') };
@@ -90,10 +90,10 @@ export abstract class StateStorage<
   /**
    * @description Performs the `callback` function on `state`.
    * @public
-   * @param {(state: Readonly<Value>) => void} callbackFn The callback function with a `state` to perform.
+   * @param {(state: Value) => void} callbackFn The callback function with a `state` to perform.
    * @returns {this} The current instance of `StateStorage` child class.
    */
-  public on(callbackFn: (state: Readonly<Value>) => void): this {
+  public on(callbackFn: (state: Value) => void): this {
     callbackFn(this.#data.value);
     return this;
   }
