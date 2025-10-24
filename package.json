@@ -28,7 +28,10 @@
   "keywords": [
     "@typescript-package",
     "@typescript-package/state",
-    "State management for different types in TypeScript"
+    "StateBase",
+    "StateHistory",
+    "StateStorage",
+    "State"
   ],
   "funding": [
     {
