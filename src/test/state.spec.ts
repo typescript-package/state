@@ -15,7 +15,7 @@ export class CustomState<
 
 export class CustomWeakData<Value> extends WeakData<readonly Value[]> {
   constructor(value: readonly Value[]){
-    super(value);   
+    super(value);
   }
 }
 
