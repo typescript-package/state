@@ -10,6 +10,7 @@
   },
   "peerDependencies": {
     "@typescript-package/data": "^5.0.0",
+    "@typescript-package/events": "^0.0.2",
     "@typescript-package/history": "^2.0.0"
   },
   "scripts": {
