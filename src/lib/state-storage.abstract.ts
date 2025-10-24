@@ -1,7 +1,7 @@
 // data.
 import { Data, DataCore, Immutability } from "@typescript-package/data";
 // Type.
-import { DataConstructor } from "./type";
+import { DataConstructor } from "../type";
 /**
  * @description StateStorage is a generic `abstract class` for setting the state of the generic type variable `Value` with customizable data storage.
  * It is used to create a state container that can be locked and modified.
