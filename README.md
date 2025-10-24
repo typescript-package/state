@@ -43,6 +43,14 @@ Simple state management for different types in TypeScript.
 npm install @typescript-package/state --save-peer
 ```
 
+Peer dependencies
+
+```bash
+@typescript-package/data@5.0.0
+@typescript-package/events@0.0.2
+@typescript-package/history@2.0.0
+```
+
 ## Api
 
 ```typescript
