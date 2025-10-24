@@ -83,7 +83,7 @@ export abstract class StateStorage<
     Immutability.deepFreeze(this.#data.value);
     this.set = () => { throw new Error('Cannot modify the state data in storage after lock.') };
     this.destroy = () => { throw new Error('Cannot delete from the state data in storage after lock.') };
-    this.lock();
+    super.lock();
     return this;
   }
 
