@@ -1,23 +1,21 @@
 import { Data, DataCore, WeakData } from "@typescript-package/data";
 import { State } from "../lib";
-import { DataConstructors } from "../lib/type";
-
-
+import { DataConstructors } from "../type";
 
 export class CustomState<
   Value,
-  DataType extends DataCore<Readonly<Value>> = Data<Readonly<Value>>,
-  HistoryType extends DataCore<readonly Value[]> = Data<readonly Value[]>,
-> extends State<Value, DataType, HistoryType> {
-  constructor(value: Value, track: number = 0, data?: DataConstructors<Value, [DataType, HistoryType]>) {
+  Size extends number,
+  DataType extends DataCore<Value> = Data<Value>,
+  HistoryData extends DataCore<readonly Value[]> = Data<readonly Value[]>,
+> extends State<Value, Size, DataType, HistoryData> {
+  constructor(value: Value, track: Size, data?: DataConstructors<Value, [DataType, HistoryData]>) {
     super(value, track, data);
   }
 }
 
 export class CustomWeakData<Value> extends WeakData<readonly Value[]> {
   constructor(value: readonly Value[]){
-    super(value);
-    
+    super(value);   
   }
 }
 
