@@ -4,7 +4,7 @@ import { StateBase } from "./state-base.abstract";
 // Class.
 import { CurrentHistory, RedoHistory, UndoHistory } from "@typescript-package/history";
 // Type.
-import { DataConstructors } from "./type";
+import { DataConstructors } from "../type";
 /**
  * @description Common `abstract class` for setting the state of the generic type variable `Value`.
  * @export
@@ -52,7 +52,7 @@ export abstract class State<
    */
   constructor(
     value: Value,
-    track: number = 0,
+    track: Size = 0 as Size,
     data?: DataConstructors<Value, [DataType, HistoryData]>,
   ) {
     super(value, track, data, { current: CurrentHistory, redo: RedoHistory, undo: UndoHistory });
