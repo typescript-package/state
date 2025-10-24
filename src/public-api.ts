@@ -2,8 +2,10 @@
  * Public API Surface of state
  */
 export {
+  // Abstract.
   State,
   StateBase,
-  StateHistory,
   StateStorage,
+  // Class.
+  StateHistory,
 } from './lib';
