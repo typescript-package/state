@@ -1,63 +1,60 @@
 // Abstract.
-import { ImmutableState } from "./immutable-state.abstract";
+import { Data, DataCore } from "@typescript-package/data";
+import { StateBase } from "./state-base.abstract";
+// Class.
+import { CurrentHistory, RedoHistory, UndoHistory } from "@typescript-package/history";
+// Type.
+import { DataConstructors } from "../type";
 /**
- * @description Common `abstract class` for setting the state of the generic type variable `Type`.
+ * @description Common `abstract class` for setting the state of the generic type variable `Value`.
  * @export
  * @abstract
  * @class State
- * @template Type
- * @extends {ImmutableState}
+ * @template Value 
+ * @template {number} Size 
+ * @template {DataCore<Value>} [DataType=Data<Value>] 
+ * @template {DataCore<readonly Value[]>} [HistoryData=Data<readonly Value[]>] 
+ * @extends {StateBase<Value, Size, DataType, HistoryData, CurrentHistory<Value, HistoryData>,
+ *  RedoHistory<Value, Size, HistoryData>,
+ *  UndoHistory<Value, Size, HistoryData>>
+ * }
  */
-export abstract class State<Type> extends ImmutableState {
+export abstract class State<
+  Value,
+  Size extends number,
+  DataType extends DataCore<Value> = Data<Value>,
+  HistoryData extends DataCore<readonly Value[]> = Data<readonly Value[]>,
+> extends StateBase<
+  Value,
+  Size,
+  DataType,
+  HistoryData,
+  CurrentHistory<Value, HistoryData>,
+  RedoHistory<Value, Size, HistoryData>,
+  UndoHistory<Value, Size, HistoryData>
+> {
   /**
-   * @description Returns the current state of `Type`.
+   * @description Returns the `string` tag representation of the `State` class when used in `Object.prototype.toString.call(instance)`.
    * @public
    * @readonly
-   * @type {Type}
+   * @type {string}
    */
-  public get state(): Readonly<Type> {
-    return this.#state;
+  public override get [Symbol.toStringTag](): string {
+    return State.name;
   }
 
   /**
-   * @description Privately stored state of `Type`.
-   * @private
-   * @type {Type}
-   */
-  #state!: Type;
-
-  /**
-   * Creates an instance of child class.
+   * Creates an instance of `State` child class.
    * @constructor
-   * @param {Type} initialState Initial state of `Type`.
+   * @param {Value} value The initial value of `Value`.
+   * @param {number} [track=0] Undo history tracking size.
+   * @param {?DataConstructors<Value, [DataType, HistoryData]>} [data] Custom data holder for state and its history.
    */
-  constructor(initialState: Type) {
-    super();
-    this.#state = initialState;
-  }
-  
-  /**
-   * @description Performs the `callback` function on `state`.
-   * @public
-   * @param {(state: Type) => void} stateCallback The callback function with a `state` to perform.
-   * @returns {this}
-   */
-  public on(stateCallback: (state: Type) => void): this {
-    stateCallback(this.#state);
-    return this;
-  }
-
-  /**
-   * @description Sets the state if the object is not locked and is allowed.
-   * @public
-   * @param {Type} state The state of `Type` to set.
-   * @returns {this}
-   */
-  protected set(state: Type): this {
-    if (super.isLocked()) {
-      throw new Error('Cannot set when object is locked.');
-    }
-    this.#state = state;
-    return this;
+  constructor(
+    value: Value,
+    track: Size = 0 as Size,
+    data?: DataConstructors<Value, [DataType, HistoryData]>,
+  ) {
+    super(value, track, data, { current: CurrentHistory, redo: RedoHistory, undo: UndoHistory });
   }
 }

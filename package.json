@@ -2,14 +2,17 @@
   "name": "@typescript-package/state",
   "version": "2.0.0",
   "author": "wwwdev.io <dev@wwwdev.io>",
-  "description": "State management for TypeScript.",
+  "description": "Simple state management for different types in TypeScript.",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "devDependencies": {},
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@typescript-package/data": "^5.0.0",
+    "@typescript-package/events": "^0.0.2",
+    "@typescript-package/history": "^2.0.0"
+  },
   "scripts": {
     "prepublishOnly": "npm run pkg && npm run clean",
     "pkg": "npm pkg delete dependencies",
@@ -24,9 +27,17 @@
   },
   "keywords": [
     "@typescript-package",
-    "@typescript-package/state"
+    "@typescript-package/state",
+    "StateBase",
+    "StateHistory",
+    "StateStorage",
+    "State"
   ],
   "funding": [
+    {
+      "type": "stripe",
+      "url": "https://donate.stripe.com/dR614hfDZcJE3wAcMM"
+    },
     {
       "type": "individual",
       "url": "https://checkout.revolut.com/pay/048b10a3-0e10-42c8-a917-e3e9cb4c8e29"
